@@ -1,1 +1,2 @@
-# petAdoption
+# App de petAdoption
+Front: React

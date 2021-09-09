@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from './Header';
 import {Input, Button} from 'react-native-elements';
 //import Icon from 'react-native-vector-icons/FontAwesome';
@@ -9,21 +9,60 @@ import {
 
 //para el color gradiente
 import LinearGradient from 'react-native-linear-gradient';
+const loginBack=(correo, contrasena) =>{
+  return new Promise((resolve, reject)=>{
+    //simula back
+    setTimeout(()=>{
+      resolve(false)
+    }, 2000)
+  })
+}
 const Login =() =>{
-  
+  const [loading,setLoading] = useState(false);
+  const [correo,setCorreo] = useState(false);
+  const [contrasena,setContrasena] = useState(false);
+  const [errorMessage, setErrorMessage] =useState("");
+
+  const loginPressed=()=>{
+    setLoading(true);
+    if(!validateEmail(correo)){
+      console.log(correo)
+      setErrorMessage("Invalid Email") //variables internas
+      setLoading(false)
+      return
+    }
+    loginBack(correo, contrasena).then(result=>{
+      setLoading(false)
+      setErrorMessage("Invalid Credential")
+    })
+  }
+
+  const validateEmail=(email) =>{
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
+  const onInputCorreoChanged=(string)=>{
+    setCorreo(string);
+  }
+
+  const onInputContrasenaChanged=(string)=>{
+    setCorreo(string);
+  }
+
   return (
     <View style={styles.container}>   
       <Header title={"Iniciar Sesión"}> </Header>
       <View style={styles.innerContainer}>
-        <Input containerStyle={styles.input} labelStyle={styles.label}
+        <Input containerStyle={styles.input} labelStyle={styles.label} onChange={onInputCorreoChanged} errorMessage={errorMessage==="Invalid Email"?"Ingrese un correo válido":""} 
           label="Correo"
           placeholder='user@email.com'
         />
-        <Input secureTextEntry={true}  labelStyle={styles.label}  containerStyle={styles.input}
+        <Input secureTextEntry={true}  labelStyle={styles.label}  containerStyle={styles.input} onChange={onInputContrasenaChanged} errorMessage={errorMessage==="Invalid Credential"?"Correo y Contraseña no coiciden":""} 
+          label="Correo"
           label="Contraseña"
           placeholder='********'
         />
-         <Button  buttonStyle={styles.button} titleStyle={styles.buttonTitle}
+         <Button loading={loading}  buttonStyle={styles.button} titleStyle={styles.buttonTitle} onPress={loginPressed}
           title="Iniciar Sesión"
         />
         <Text style={styles.text}>

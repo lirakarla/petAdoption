@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Header from './Header';
 import {Input, Button} from 'react-native-elements';
 //import Icon from 'react-native-vector-icons/FontAwesome';
+import {withoutEmoji} from "emoji-aware";
 import {
   
   Text, StyleSheet, Image, View, StatusBar
@@ -17,23 +18,39 @@ const loginBack=(correo, contrasena) =>{
     }, 2000)
   })
 }
-const Login =() =>{
+const Signup =() =>{
   const [loading,setLoading] = useState(false);
-  const [correo,setCorreo] = useState(false);
-  const [contrasena,setContrasena] = useState(false);
+  const [correo,setCorreo] = useState("");
+  const [contrasena,setContrasena] = useState("");
+  const [confirmContrasena,setConfirmContrasena] = useState("");
+  const [errorType, setErrorType] =useState("");
   const [errorMessage, setErrorMessage] =useState("");
 
   const loginPressed=()=>{
     setLoading(true);
     if(!validateEmail(correo)){
       console.log(correo)
-      setErrorMessage("Invalid Email") //variables internas
+      setErrorType("Invalid Email") //variables internas
+      setErrorMessage("Ingrese un correo válido")
       setLoading(false)
       return
     }
-    loginBack(correo, contrasena).then(result=>{
+    if(contrasena.length<5 || contrasena!==withoutEmoji(contrasena).join("")){
+        setErrorType("Invalid Password")
+        setLoading(false)
+        return
+    }
+    if(contrasena!==confirmContrasena){
+        setErrorType("Invalid Confirmation")
+        setLoading(false)
+        return
+    }
+    //SIMULACIÓN DEBERIA SER AXIOS
+    signupBack(correo, contrasena).then(result=>{
       setLoading(false)
-      setErrorMessage("Invalid Credential")
+      setErrorType("Invalid Email")
+      //ME REGRESA EL BACK 409
+      setErrorMessage("Ya existe un usuario con ese correo")
     })
   }
 
@@ -49,25 +66,32 @@ const Login =() =>{
     setContrasena(string);
   }
 
+  const onInputConfirmContrasenaChanged=(string)=>{
+    setConfirmContrasena(string);
+  }
+
   return (
     <View style={styles.container}>   
-      <Header title={"Iniciar Sesión"}> </Header>
+      <Header title={"Registrarse"}> </Header>
       <View style={styles.innerContainer}>
-        <Input containerStyle={styles.input} labelStyle={styles.label} onChangeText={onInputCorreoChanged} errorMessage={errorMessage==="Invalid Email"?"Ingrese un correo válido":""} 
+        <Input containerStyle={styles.input} labelStyle={styles.label} onChangeText={onInputCorreoChanged} errorMessage={errorType==="Invalid Email"?errorMessage:""} 
           label="Correo"
           placeholder='user@email.com'
         />
-        <Input secureTextEntry={true}  labelStyle={styles.label}  containerStyle={styles.input} onChangeText={onInputContrasenaChanged} errorMessage={errorMessage==="Invalid Credential"?"El correo y la contraseña no coinciden":""} 
-          label="Correo"
+        <Input secureTextEntry={true}  labelStyle={styles.label}  containerStyle={styles.input} onChangeText={onInputContrasenaChanged} errorMessage={errorType==="Invalid Password"?"La contraseña debe ser minímo 5 caracteres y no incluir caracteres especiales":""} 
           label="Contraseña"
           placeholder='********'
         />
+         <Input secureTextEntry={true}  labelStyle={styles.label}  containerStyle={styles.input} onChangeText={onInputConfirmContrasenaChanged} errorMessage={errorType==="Invalid Confirmation"?"Las contraseñas no coinciden":""} 
+          label="Confirmar contraseña"
+          placeholder='********'
+        />
          <Button loading={loading}  buttonStyle={styles.button} titleStyle={styles.buttonTitle} onPress={loginPressed}
-          title="Iniciar Sesión"
+          title="Registrarse"
         />
         <Text style={styles.text}>
-           <Text > ¿Aún no tienes cuenta? </Text>
-           <Text style={styles.regis}> Regístrate </Text>
+           <Text > ¿Ya tienes una cuenta? </Text>
+           <Text style={styles.regis}> Inicia Sesión </Text>
         </Text>
       </View>
     </View>
@@ -110,4 +134,4 @@ var styles = {
   }
 };
 
-export default Login;
+export default Signup;

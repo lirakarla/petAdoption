@@ -8,6 +8,8 @@ import SplashScreen from 'react-native-splash-screen'
 import Login from './src/Login';
 import {name as appName} from './app.json';
 import Signup from './src/Signup';
-AppRegistry.registerComponent(appName, () => Signup);
+import Location from './src/Location';
+import Home from './src/Home';
+AppRegistry.registerComponent(appName, () => Home);
 SplashScreen.hide();
 

@@ -5,7 +5,7 @@ import {Input, Button} from 'react-native-elements';
 import {withoutEmoji} from "emoji-aware";
 import {
   
-  Text, StyleSheet, Image, View, StatusBar
+  Text, StyleSheet, Image, View, StatusBar, KeyboardAvoidingView
 } from 'react-native';
 
 //para el color gradiente
@@ -71,7 +71,11 @@ const Signup =() =>{
   }
 
   return (
-    <View style={styles.container}>   
+    <KeyboardAvoidingView
+    behavior={Platform.OS === "ios" ? "padding" : undefined}
+    style={styles.container}
+    keyboardVerticalOffset={100}
+  >
       <Header title={"Registrarse"}> </Header>
       <View style={styles.innerContainer}>
         <Input containerStyle={styles.input} labelStyle={styles.label} onChangeText={onInputCorreoChanged} errorMessage={errorType==="Invalid Email"?errorMessage:""} 
@@ -94,7 +98,7 @@ const Signup =() =>{
            <Text style={styles.regis}> Inicia Sesión </Text>
         </Text>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 } 
 // estilo =css, es un objeto js
@@ -107,17 +111,17 @@ var styles = {
     padding:40,
   },
   input:{
-    marginBottom:30,
-    marginTop:30,
+    marginBottom:10,
+    marginTop:20,
   },
   label:{
-    fontSize:24,
+    fontSize:20,
     color: "#000000",
   },
   button:{
     backgroundColor:"#FFD46F",
     borderRadius:20,
-    marginTop:20,
+    marginTop:10,
   },
   buttonTitle:{
     color:"#000000",
@@ -126,7 +130,7 @@ var styles = {
   text:{
     color:"#000000",
     fontSize:18,
-    marginTop:100,
+    marginTop:60,
   },
   regis:{
     color:"#C88037",

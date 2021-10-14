@@ -10,6 +10,7 @@ import {name as appName} from './app.json';
 import Signup from './src/Signup';
 import Location from './src/Location';
 import Home from './src/Home';
-AppRegistry.registerComponent(appName, () => Home);
+import Filtro from './src/Filtro'
+AppRegistry.registerComponent(appName, () => Filtro);
 SplashScreen.hide();
 

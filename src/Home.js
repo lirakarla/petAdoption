@@ -12,12 +12,14 @@ import {
 } from 'react-native';
 
 const animals=[{
+  id:1,
   name:"Gato Persa",
   age: "1 año",
   gender:"Macho",
   url:"https://estaticos.muyinteresante.es/media/cache/1140x_thumb/uploads/images/gallery/591b07c25bafe832243c986d/gato-persa-gris_0.jpg"
 },
 {
+  id:2,
   name:"Husky",
   age:"6 años",
   gender:"Hembra",
@@ -36,7 +38,7 @@ const Home =() =>{
         <Icon name="filter" size={25} color="#757574" />
       </View>
         {animals.map(animal=>{
-          return <Card name={animal.name} age={animal.age} gender={animal.gender} url={animal.url}></Card>
+          return <Card key={animal.id} name={animal.name} age={animal.age} gender={animal.gender} url={animal.url}></Card>
         })}
     </View>
     
@@ -46,7 +48,7 @@ const Home =() =>{
 var styles = {
   ti:{
     fontSize:25,
-    color:"#00000",
+    color:"black",
     fontWeight:"bold",
     textAlign:"center"
   },

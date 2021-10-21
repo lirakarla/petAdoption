@@ -1,51 +1,118 @@
-import React, { useState } from 'react';
+import React, { useState,useRef } from 'react';
 import InsideHeader from './InsideHeader';
-import {Input, Button} from 'react-native-elements';
+//mport {Input, Button} from 'react-native-elements';
 //import Icon from 'react-native-vector-icons/FontAwesome';
 import {withoutEmoji} from "emoji-aware";
-import { ButtonGroup } from 'react-native-elements';
-import DropDownPicker from 'react-native-dropdown-picker';
-import {
-  
-  Text, StyleSheet, Image, View, StatusBar, KeyboardAvoidingView
-} from 'react-native';
+import { ButtonGroup,Button } from 'react-native-elements';
+import ReactNativePickerModule from "react-native-picker-module"
+import {Text, StyleSheet, Image, View, StatusBar, KeyboardAvoidingView, SafeAreaView} from 'react-native';
 
 
 const Filtro =() =>{
-    const [open, setOpen] = useState(false);
-    const [value, setValue] = useState(null);
-    const [items, setItems] = useState([
-      { defaultvalue:'Elige una sucursal'},
-      {label: 'Apple', value: 'apple'},
-      {label: 'Banana', value: 'banana'}
-    ]);
-    const buttons = ['Macho', 'Hembra']
-    const buttons = ['Macho', 'Hembra']
+   
+  const pickerRef = useRef()
+  const[scrollEnabled,setScrollEnabled]=useState(true)
+  const [value, setValue] = useState()
+  const dataset_1 = [1, 2, "Java", "Kotlin", "C++", "C#", "PHP"]
+  const dataset_2 = [
+    {
+      value: 101,
+      label: "Javascript",
+    },
+    {
+      value: "golang_101",
+      label: "Go",
+    },
+    {
+      value: "kotlin_dsl",
+      label: "Kotlin",
+    },
+    {
+      value: "java_101",
+      label: "Java",
+    },
+    {
+      value: "cplusplus",
+      label: "C++",
+    },
+    {
+      value: "csharp_201",
+      label: "C#",
+    },
+    {
+      value: "php_201",
+      label: "PHP",
+    },
+  ]
+    const button1= ['Macho', 'Hembra']
+    const button2 = ['Pequeño', 'Mediano','Grande']
   return (
     <View style={styles.container}>
       <InsideHeader title={"Filtro"}></InsideHeader>
-        <View >
+        <View style={{padding:20}}>
             <Text style={styles.cate}>Ubicación de Sucursal</Text>
-            <DropDownPicker style={styles.dropdown}
-                open={open}
-                value={value}
-                items={items}
-                setOpen={setOpen}
-                setValue={setValue}
-                setItems={setItems}
+              <Button buttonStyle={{backgroundColor: "#FFFFFF", width:300, marginTop:10,marginBottom:10}} titleStyle={{color:"#8F8F8F"}} title="Selecciona una Sucursal" onPress={() => pickerRef.current.show()} />
+            <ReactNativePickerModule
+              pickerRef={pickerRef}
+              value={value}
+              title={"Selecciona una Sucursal"}
+              items={dataset_1}
+              titleStyle={{ color: "gray" }}
+              itemStyle={{ color: "white" }}
+              selectedColor="#FC0"
+              confirmButtonEnabledTextStyle={{ color: "white" }}
+              confirmButtonDisabledTextStyle={{ color: "grey" }}
+              cancelButtonTextStyle={{ color: "white" }}
+              confirmButtonStyle={{
+                backgroundColor: "rgba(0,0,0,1)",
+              }}
+              cancelButtonStyle={{
+                backgroundColor: "rgba(0,0,0,1)",
+              }}
+              contentContainerStyle={{
+                backgroundColor: "rgba(0,0,0,1)",
+              }}
+              onCancel={() => {
+                console.log("Cancelled")
+              }}
+              onValueChange={value => {
+                console.log("value: ", value)
+                setValue(value)
+              }}
             />
             <Text style={styles.cate}>Tipo de Mascota</Text>
-            <DropDownPicker style={styles.dropdown}
-                open={open}
-                value={value}
-                items={items}
-                setOpen={setOpen}
-                setValue={setValue}
-                setItems={setItems}
+            <Button buttonStyle={{backgroundColor: "#FFFFFF", width:300, marginTop:10,marginBottom:10}} titleStyle={{color:"#8F8F8F"}} title="Selecciona el tipo de mascota" onPress={() => pickerRef.current.show()} />
+            <ReactNativePickerModule
+              pickerRef={pickerRef}
+              value={value}
+              title={"Selecciona el tipo de mascota"}
+              items={dataset_1}
+              titleStyle={{ color: "gray" }}
+              itemStyle={{ color: "white" }}
+              selectedColor="#FC0"
+              confirmButtonEnabledTextStyle={{ color: "white" }}
+              confirmButtonDisabledTextStyle={{ color: "grey" }}
+              cancelButtonTextStyle={{ color: "white" }}
+              confirmButtonStyle={{
+                backgroundColor: "rgba(0,0,0,1)",
+              }}
+              cancelButtonStyle={{
+                backgroundColor: "rgba(0,0,0,1)",
+              }}
+              contentContainerStyle={{
+                backgroundColor: "rgba(0,0,0,1)",
+              }}
+              onCancel={() => {
+                console.log("Cancelled")
+              }}
+              onValueChange={value => {
+                console.log("value: ", value)
+                setValue(value)
+              }}
             />
             <Text style={styles.cate}>Género</Text>
             <ButtonGroup
-                buttons={buttons}
+                buttons={button1}
                 containerStyle={{height: 50, weight:20}}
                 buttonContainerStyle={{backgroundColor: 'white'}}
                 textStyle={{color: 'black'}}
@@ -53,13 +120,15 @@ const Filtro =() =>{
             />
             <Text style={styles.cate}>Tamaño</Text>
             <ButtonGroup
-                buttons={tamanio}
+                buttons={button2}
                 containerStyle={{height: 50, weight:20}}
                 buttonContainerStyle={{backgroundColor: 'white'}}
                 textStyle={{color: 'black'}}
                 borderColor={{color:'gray'}}
             />
             <Text style={styles.cate}>Rango de Edad</Text>
+           
+
         </View>
     </View>
     
@@ -82,12 +151,12 @@ var styles = {
   },
   innerContainer:{
     flex:1,
-    padding:40,
+    padding:90,
   },
   cate:{
     fontSize:18,
-    marginTop:20,
-    fontWeight:"bold"
+    fontWeight:"bold",
+    paddingTop:15
   },
  
   button:{

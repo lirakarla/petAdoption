@@ -10,7 +10,7 @@ import {
 
 //para el color gradiente
 import LinearGradient from 'react-native-linear-gradient';
-const loginBack=(correo, contrasena) =>{
+const signupBack=(correo, contrasena) =>{
   return new Promise((resolve, reject)=>{
     //simula back
     setTimeout(()=>{
@@ -18,7 +18,7 @@ const loginBack=(correo, contrasena) =>{
     }, 2000)
   })
 }
-const Signup =() =>{
+const Signup =({navigation}) =>{
   const [loading,setLoading] = useState(false);
   const [correo,setCorreo] = useState("");
   const [contrasena,setContrasena] = useState("");
@@ -47,6 +47,8 @@ const Signup =() =>{
     }
     //SIMULACIÓN DEBERIA SER AXIOS
     signupBack(correo, contrasena).then(result=>{
+      navigation.navigate("Home")
+      //mensajes del catch
       setLoading(false)
       setErrorType("Invalid Email")
       //ME REGRESA EL BACK 409
@@ -95,7 +97,7 @@ const Signup =() =>{
         />
         <Text style={styles.text}>
            <Text > ¿Ya tienes una cuenta? </Text>
-           <Text style={styles.regis}> Inicia Sesión </Text>
+           <Text style={styles.regis} onPress={()=>navigation.navigate("Login")}> Inicia Sesión </Text>
         </Text>
       </View>
     </KeyboardAvoidingView>

@@ -7,14 +7,7 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 //para el color gradiente
 import LinearGradient from 'react-native-linear-gradient';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import SplashScreeen from './SplashScreeen';
-import Signup from './Signup';
-import Login from './Login';
-import Home from './Home';
-const Stack = createNativeStackNavigator();
-
-class App extends Component{
+class SplashScreeen extends Component{
   
   componentDidMount() {
     // do stuff while splash screen is shown
@@ -23,14 +16,15 @@ class App extends Component{
   }
   render(){
     return(
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{headerShown:false}}>
-         
-          <Stack.Screen name="Signup" component={Signup} />
-          <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="Home" component={Home} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <LinearGradient colors={['#F8F6F2', '#FCDBBA', '#FFD46F']} style={styles.linearGradient}>
+      
+        <Text style={styles.nombre}>
+          Pet Adoption
+        </Text>
+        <Text style={styles.buttonText}>
+          Encuentra a tu mejor amigo
+        </Text>
+      </LinearGradient>
     )
   }
 } 
@@ -72,4 +66,4 @@ var styles = {
 
 
 
-export default App;
+export default SplashScreeen;

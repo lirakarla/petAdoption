@@ -1,4 +1,4 @@
-import React, { useState,useRef } from 'react';
+import React, { useState,useRef,useCallback} from 'react';
 import InsideHeader from './InsideHeader';
 //mport {Input, Button} from 'react-native-elements';
 //import Icon from 'react-native-vector-icons/FontAwesome';
@@ -9,10 +9,20 @@ import {Text, StyleSheet, Image, View, StatusBar, KeyboardAvoidingView, SafeArea
 
 
 const Filtro =() =>{
-   
-  const pickerRef = useRef()
+  //const renderThumb = useCallback(() => <Thumb/>, []);
+  //const renderRail = useCallback(() => <Rail/>, []);
+  //const renderRailSelected = useCallback(() => <RailSelected/>, []);
+  //const renderLabel = useCallback(value => <Label text={value}/>, []);
+  //const renderNotch = useCallback(() => <Notch/>, []);
+  const handleValueChange = useCallback((low, high) => {
+    setLow(low);
+    setHigh(high);
+  }, []);
+  const pickerRefSucursal = useRef()
+  const pickerRefMascota = useRef()
   const[scrollEnabled,setScrollEnabled]=useState(true)
-  const [value, setValue] = useState()
+  const [valueSucursal, setValueSucursal] = useState()
+  const [valueMascota, setValueMascota] = useState()
   const dataset_1 = [1, 2, "Java", "Kotlin", "C++", "C#", "PHP"]
   const dataset_2 = [
     {
@@ -44,6 +54,8 @@ const Filtro =() =>{
       label: "PHP",
     },
   ]
+    const [genero,setGenero]=useState(0)
+    const [tamanio,setTamanio]=useState(0)
     const button1= ['Macho', 'Hembra']
     const button2 = ['Pequeño', 'Mediano','Grande']
   return (
@@ -51,11 +63,11 @@ const Filtro =() =>{
       <InsideHeader title={"Filtro"}></InsideHeader>
         <View style={{padding:20}}>
             <Text style={styles.cate}>Ubicación de Sucursal</Text>
-              <Button buttonStyle={{backgroundColor: "#FFFFFF", width:300, marginTop:10,marginBottom:10}} titleStyle={{color:"#8F8F8F"}} title="Selecciona una Sucursal" onPress={() => pickerRef.current.show()} />
+              <Button buttonStyle={{backgroundColor: "#FFFFFF", width:300, marginTop:10,marginBottom:10}} titleStyle={{color:"#8F8F8F"}} title={valueSucursal?valueSucursal:"Selecciona una Sucursal"} onPress={() => pickerRefSucursal.current.show()} />
             <ReactNativePickerModule
-              pickerRef={pickerRef}
-              value={value}
-              title={"Selecciona una Sucursal"}
+              pickerRef={pickerRefSucursal}
+              value={valueSucursal}
+              title={valueSucursal}
               items={dataset_1}
               titleStyle={{ color: "gray" }}
               itemStyle={{ color: "white" }}
@@ -76,16 +88,16 @@ const Filtro =() =>{
                 console.log("Cancelled")
               }}
               onValueChange={value => {
-                console.log("value: ", value)
-                setValue(value)
+                console.log("valueSucursal: ", value)
+                setValueSucursal(value)
               }}
             />
             <Text style={styles.cate}>Tipo de Mascota</Text>
-            <Button buttonStyle={{backgroundColor: "#FFFFFF", width:300, marginTop:10,marginBottom:10}} titleStyle={{color:"#8F8F8F"}} title="Selecciona el tipo de mascota" onPress={() => pickerRef.current.show()} />
+            <Button buttonStyle={{backgroundColor: "#FFFFFF", width:300, marginTop:10,marginBottom:10}} titleStyle={{color:"#8F8F8F"}} title={valueMascota?valueMascota:"Selecciona un Tipo de Mascota"}onPress={() => pickerRefMascota.current.show()} />
             <ReactNativePickerModule
-              pickerRef={pickerRef}
-              value={value}
-              title={"Selecciona el tipo de mascota"}
+              pickerRef={pickerRefMascota}
+              value={valueMascota}
+              title={valueMascota}
               items={dataset_1}
               titleStyle={{ color: "gray" }}
               itemStyle={{ color: "white" }}
@@ -106,12 +118,13 @@ const Filtro =() =>{
                 console.log("Cancelled")
               }}
               onValueChange={value => {
-                console.log("value: ", value)
-                setValue(value)
+                console.log("valueMascota: ", value)
+                setValueMascota(value)
               }}
             />
             <Text style={styles.cate}>Género</Text>
-            <ButtonGroup
+            <ButtonGroup selectedIndex={genero} //genero----macho=0, hembra=1
+             onPress={(i)=>setGenero(i)}
                 buttons={button1}
                 containerStyle={{height: 50, weight:20}}
                 buttonContainerStyle={{backgroundColor: 'white'}}
@@ -119,7 +132,8 @@ const Filtro =() =>{
                 borderColor={{color:'gray'}}
             />
             <Text style={styles.cate}>Tamaño</Text>
-            <ButtonGroup
+            <ButtonGroup selectedIndex={tamanio} //
+             onPress={(i)=>setTamanio(i)}
                 buttons={button2}
                 containerStyle={{height: 50, weight:20}}
                 buttonContainerStyle={{backgroundColor: 'white'}}

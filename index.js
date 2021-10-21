@@ -11,6 +11,7 @@ import Signup from './src/Signup';
 import Location from './src/Location';
 import Home from './src/Home';
 import Filtro from './src/Filtro'
-AppRegistry.registerComponent(appName, () => Filtro);
+import PerfilMascota from './src/PerfilMascota'
+AppRegistry.registerComponent(appName, () => PerfilMascota);
 SplashScreen.hide();
 

@@ -23,7 +23,8 @@
     "react-native-picker-module": "^2.0.4",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-splash-screen": "^3.2.0",
-    "react-native-vector-icons": "^8.1.0"
+    "react-native-vector-icons": "^8.1.0",
+    "rn-range-slider": "^2.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

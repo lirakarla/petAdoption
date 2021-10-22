@@ -47,7 +47,7 @@ const Signup =({navigation}) =>{
     }
     //SIMULACIÓN DEBERIA SER AXIOS
     signupBack(correo, contrasena).then(result=>{
-      navigation.navigate("Home")
+      navigation.navigate("Location")
       //mensajes del catch
       setLoading(false)
       setErrorType("Invalid Email")

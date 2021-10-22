@@ -26,7 +26,7 @@ const animals=[{
   url:"https://www.cronicanorte.es/wp-content/uploads/2020/06/Pomsky_Dog_Breed_-_Pomeranian_Husky_Mix.jpg"
 }]
 
-const Home =() =>{
+const Home =({navigation}) =>{
   return (
     <View style={styles.container}>
       <HeaderHome ></HeaderHome>
@@ -35,7 +35,7 @@ const Home =() =>{
           <Text style={styles.ti}>Adopta un Amigo</Text>
           <Text style={styles.sub}>Encuentra a tu mascota favorita</Text>
         </View>
-        <Icon name="filter" size={25} color="#757574" />
+        <Icon name="filter" size={25} color="#757574" onPress={()=>navigation.navigate("Filtro")} />
       </View>
         {animals.map(animal=>{
           return <Card key={animal.id} name={animal.name} age={animal.age} gender={animal.gender} url={animal.url}></Card>

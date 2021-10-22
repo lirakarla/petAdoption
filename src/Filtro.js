@@ -8,7 +8,7 @@ import ReactNativePickerModule from "react-native-picker-module"
 import {Text, StyleSheet, Image, View, StatusBar, KeyboardAvoidingView, SafeAreaView} from 'react-native';
 
 
-const Filtro =() =>{
+const Filtro =({navigation}) =>{
   //const renderThumb = useCallback(() => <Thumb/>, []);
   //const renderRail = useCallback(() => <Rail/>, []);
   //const renderRailSelected = useCallback(() => <RailSelected/>, []);
@@ -123,22 +123,24 @@ const Filtro =() =>{
               }}
             />
             <Text style={styles.cate}>Género</Text>
-            <ButtonGroup selectedIndex={genero} //genero----macho=0, hembra=1
+            <ButtonGroup selectedTextStyle={{color:'black'}} selectedButtonStyle={styles.boton} selectedIndex={genero} //genero----macho=0, hembra=1
              onPress={(i)=>setGenero(i)}
                 buttons={button1}
                 containerStyle={{height: 50, weight:20}}
                 buttonContainerStyle={{backgroundColor: 'white'}}
                 textStyle={{color: 'black'}}
                 borderColor={{color:'gray'}}
+                underlayColor={{color:'red'}}
             />
             <Text style={styles.cate}>Tamaño</Text>
-            <ButtonGroup selectedIndex={tamanio} //
-             onPress={(i)=>setTamanio(i)}
+            <ButtonGroup selectedTextStyle={{color:'black'}} selectedButtonStyle={styles.boton}selectedIndex={tamanio} //
+                onPress={(i)=>setTamanio(i)}
                 buttons={button2}
                 containerStyle={{height: 50, weight:20}}
                 buttonContainerStyle={{backgroundColor: 'white'}}
                 textStyle={{color: 'black'}}
                 borderColor={{color:'gray'}}
+             
             />
             <Text style={styles.cate}>Rango de Edad</Text>
            
@@ -150,7 +152,11 @@ const Filtro =() =>{
 } 
 // estilo =css, es un objeto js
 var styles = {
-
+    boton:{
+      backgroundColor:"#FFD46F",
+      TextColor:"gray"
+      
+    },
     dropdown:{
         height:40,
         borderColor:"#F3F2EF",

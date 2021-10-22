@@ -17,7 +17,7 @@ const loginBack=(correo, contrasena) =>{
     }, 2000)
   })
 }
-const Login =() =>{
+const Login =({navigation}) =>{
   const [loading,setLoading] = useState(false);
   const [correo,setCorreo] = useState(false);
   const [contrasena,setContrasena] = useState(false);
@@ -32,6 +32,7 @@ const Login =() =>{
       return
     }
     loginBack(correo, contrasena).then(result=>{
+      navigation.navigate("Location")
       setLoading(false)
       setErrorMessage("Invalid Credential")
     })
@@ -67,7 +68,7 @@ const Login =() =>{
         />
         <Text style={styles.text}>
            <Text > ¿Aún no tienes cuenta? </Text>
-           <Text style={styles.regis}> Regístrate </Text>
+           <Text style={styles.regis} onPress={()=>navigation.navigate("Signup")}> Regístrate </Text>
         </Text>
       </View>
     </View>

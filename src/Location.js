@@ -9,15 +9,15 @@ import {
 } from 'react-native';
 
 
-const Location =() =>{
+const Location =({navigation}) =>{
   return (
     <View style={styles.container}>
       <Image source={require("../src/1.png")} style={{marginTop:30 ,height:480, width:400, resizeMode:"contain"}}></Image>
-      <Button  buttonStyle={styles.button} titleStyle={styles.buttonTitle} 
+      <Button  buttonStyle={styles.button} titleStyle={styles.buttonTitle} onPress={()=>navigation.navigate("Home")}
           title="Permitir"
         />
         <Text style={styles.text}>
-           <Text style={styles.regis}> Saltar </Text>
+           <Text style={styles.regis} onPress={()=>navigation.navigate("Home")}> Saltar </Text>
         </Text>
     </View>
     

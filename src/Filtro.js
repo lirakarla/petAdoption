@@ -60,7 +60,7 @@ const Filtro =({navigation}) =>{
     const button2 = ['Pequeño', 'Mediano','Grande']
   return (
     <View style={styles.container}>
-      <InsideHeader title={"Filtro"}></InsideHeader>
+      <InsideHeader navigation={navigation} title={"Filtro"}></InsideHeader>
         <View style={{padding:20}}>
             <Text style={styles.cate}>Ubicación de Sucursal</Text>
               <Button buttonStyle={{backgroundColor: "#FFFFFF", width:300, marginTop:10,marginBottom:10}} titleStyle={{color:"#8F8F8F"}} title={valueSucursal?valueSucursal:"Selecciona una Sucursal"} onPress={() => pickerRefSucursal.current.show()} />

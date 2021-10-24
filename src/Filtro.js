@@ -6,7 +6,7 @@ import {withoutEmoji} from "emoji-aware";
 import { ButtonGroup,Button } from 'react-native-elements';
 import ReactNativePickerModule from "react-native-picker-module"
 import {Text, StyleSheet, Image, View, StatusBar, KeyboardAvoidingView, SafeAreaView} from 'react-native';
-
+import NumericInput from 'react-native-numeric-input'
 
 const Filtro =({navigation}) =>{
   //const renderThumb = useCallback(() => <Thumb/>, []);
@@ -14,6 +14,7 @@ const Filtro =({navigation}) =>{
   //const renderRailSelected = useCallback(() => <RailSelected/>, []);
   //const renderLabel = useCallback(value => <Label text={value}/>, []);
   //const renderNotch = useCallback(() => <Notch/>, []);
+  
   const handleValueChange = useCallback((low, high) => {
     setLow(low);
     setHigh(high);
@@ -23,7 +24,7 @@ const Filtro =({navigation}) =>{
   const[scrollEnabled,setScrollEnabled]=useState(true)
   const [valueSucursal, setValueSucursal] = useState()
   const [valueMascota, setValueMascota] = useState()
-  const [valueEdad, setValueEdad] = useState()
+  const [valueEdad, setValueEdad] = useState(0)
   const dataset_1 = [1, 2, "Java", "Kotlin", "C++", "C#", "PHP"]
   const dataset_2 = [
     {
@@ -145,16 +146,17 @@ const Filtro =({navigation}) =>{
                 borderColor={{color:'gray'}}
              
             />
-            <Text style={styles.cate}>Etapa de Vida</Text>
-            <ButtonGroup selectedTextStyle={{color:'black'}} selectedButtonStyle={styles.boton}selectedIndex={etapa} //
-                onPress={(i)=>setEtapa(i)}
-                buttons={button3}
-                containerStyle={{height: 50, weight:20}}
-                buttonContainerStyle={{backgroundColor: 'white'}}
-                textStyle={{color: 'black'}}
-                borderColor={{color:'gray'}}
-             
-            />
+            <Text style={styles.cate}>Rango de Edad</Text>
+            <View style={{flexDirection:"row", paddingTop:10}}>
+              <View style={{paddingLeft:10,marginRight:35}}>
+                <Text>Edad Mínima</Text>
+                <NumericInput minValue={0} maxValue={6} type='up-down' onChange={valueEdad => console.log(valueEdad)} />
+              </View>
+              <View >
+                <Text>Edad Máxima</Text>
+                <NumericInput minValue={0} maxValue={6} type='up-down' onChange={valueEdad => console.log(valueEdad)} />
+              </View>
+            </View>
         </View>
     </View>
     
@@ -186,7 +188,7 @@ var styles = {
   cate:{
     fontSize:18,
     fontWeight:"bold",
-    paddingTop:15
+    paddingTop:18
   },
  
   button:{

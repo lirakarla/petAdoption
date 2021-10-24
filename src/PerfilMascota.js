@@ -1,6 +1,7 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon1 from 'react-native-vector-icons/SimpleLineIcons';
+import {Input, Button} from 'react-native-elements';
 import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {
@@ -27,20 +28,35 @@ const PerfilMascota =({title}) =>{
         <View style={{flexDirection:"row", justifyContent:"space-around"}}>
             <View style={styles.tarjeta}>
                 <Text style={styles.texto}>Edad</Text>
-                <Text style={styles.texto}>3</Text>
+                <Text style={styles.texto}>1 año</Text>
             </View>
             <View style={styles.tarjeta}>
-                <Text style={styles.texto}>Edad</Text>
-                <Text style={styles.texto}>3</Text>
+                <Text style={styles.texto}>Género</Text>
+                <Text style={styles.texto}>Hembra</Text>
             </View>
             <View style={styles.tarjeta}>
-                <Text style={styles.texto}>Edad</Text>
-                <Text style={styles.texto}>3</Text>
+                <Text style={styles.texto}>Peso</Text>
+                <Text style={styles.texto}>0.56 KG</Text>
             </View>
             <View style={styles.tarjeta}>
-                <Text style={styles.texto}>Edad</Text>
-                <Text style={styles.texto}>3</Text>
+                <Text style={styles.texto}>Tamaño</Text>
+                <Text style={styles.texto}>Pequeño</Text>
             </View>
+        </View> 
+        <View style={{margin:20}}>
+           <Text style={styles.descrip}>Descripción</Text>
+        </View>
+        <View style={{paddingLeft:50}}>
+       
+           <Text style={styles.descrip}>{'\u2022' + "Es un conejo de color café con blanco."}</Text>
+           <Text style={styles.descrip}>{'\u2022' + "Su personalidad es muy dormilón y le gusta estar rodeado de gente."}</Text>
+           <Text style={styles.descrip}>{'\u2022' + " Ya cuenta con vacunas y está desparasitado."}</Text>
+        </View>
+        <View>
+        
+        <Button  buttonStyle={styles.button} titleStyle={styles.buttonTitle} 
+          title="Solicitar Adoptar"
+        />
         </View>
     </View>
   );
@@ -48,7 +64,7 @@ const PerfilMascota =({title}) =>{
 // estilo =css, es un objeto js
 var styles = {
 tarjeta:{
-backgroundColor:"red",
+backgroundColor:"#FEFEFD",
 borderRadius:10,
 padding:10,
 width:80,
@@ -60,28 +76,10 @@ textAlign:"center"
  container:{
     flex:1
  },
-  link:{
-    fontSize: 14,
-    color:  '#C88037',
-    textAlign:"center",
-    fontWeight:"600",
-    textDecorationLine: 'underline'
-  },
-  header:{
-      backgroundColor: "#FDFCFB",
-      height: 70,
-      borderBottomLeftRadius: 20,
-      borderBottomRightRadius: 20,
-      shadowColor: "#000000",
-      width:"100%",
-      marginBottom:15,
-    shadowOffset: {
-        width: 0,
-        height: 9,
-    },
-    shadowOpacity: 1.0,
-    shadowRadius: 1.84,
-    elevation: 10,
+ 
+  descrip:{
+    fontSize: 16,
+    paddingTop:10
   },
  titulo: {
     fontSize: 24,
@@ -90,6 +88,20 @@ textAlign:"center"
     margin: 10,
     color: '#000000',
     fontWeight:"bold"
+  },
+  button:{
+    backgroundColor:"#FFD46F",
+    borderRadius:20,
+    marginTop:20,
+    width:300,
+    marginLeft:45,
+    marginTop:30,
+    justifyContent:"center",
+    alignItems:"center"
+  },
+  buttonTitle:{
+    color:"#000000",
+    fontSize:18,
   },
  
 };

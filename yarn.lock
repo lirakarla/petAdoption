@@ -5314,7 +5314,7 @@ prompts@^2.0.1, prompts@^2.4.0:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.5.10, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.5.10, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -5431,10 +5431,23 @@ react-native-modal@^13.0.0:
     prop-types "^15.6.2"
     react-native-animatable "1.3.3"
 
+react-native-numeric-input@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/react-native-numeric-input/-/react-native-numeric-input-1.9.0.tgz#e57a0c3d226935abc0b205dec11e662f25926013"
+  integrity sha512-PEtji6X0duniB/PrCl4DgBFSmjrQQaMxfZqGqbUjh1UalNX4ITdrPyctZK5BFs2/AbJq05tj/OYBNEGTiDIbPw==
+  dependencies:
+    prop-types "^15.6.1"
+    react-native-pixel-perfect "^1.0.1"
+
 react-native-picker-module@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/react-native-picker-module/-/react-native-picker-module-2.0.4.tgz#4a08d8fd2cf18a4ab6a4d55152aa5789b5d898aa"
   integrity sha512-oWvWNach+ajFu9E5AcqZ6W6PHtb3L0vjKuCelk6IdZTqbKP7wNqoSJWhAegza4kvf91qfmwVs8ihfQE4AS9CSw==
+
+react-native-pixel-perfect@^1.0.1:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-pixel-perfect/-/react-native-pixel-perfect-1.0.2.tgz#8e6dc97e377caa4bd07f9e584ba438d53c0e25e8"
+  integrity sha512-0IvYCNkxuQbQC9q4tI+C3i6o38nbx916p7gBRBWuPxDhKBCuTkVV3VukcfW6vtjRlwQm6kwQcF9OtI+yUBt+YA==
 
 react-native-ratings@8.0.4:
   version "8.0.4"

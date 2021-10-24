@@ -23,6 +23,7 @@ const Filtro =({navigation}) =>{
   const[scrollEnabled,setScrollEnabled]=useState(true)
   const [valueSucursal, setValueSucursal] = useState()
   const [valueMascota, setValueMascota] = useState()
+  const [valueEdad, setValueEdad] = useState()
   const dataset_1 = [1, 2, "Java", "Kotlin", "C++", "C#", "PHP"]
   const dataset_2 = [
     {
@@ -56,8 +57,10 @@ const Filtro =({navigation}) =>{
   ]
     const [genero,setGenero]=useState(0)
     const [tamanio,setTamanio]=useState(0)
+    const [etapa,setEtapa]=useState(0)
     const button1= ['Macho', 'Hembra']
     const button2 = ['Pequeño', 'Mediano','Grande']
+    const button3 = ['Cachorro', 'Adulto','Senior']
   return (
     <View style={styles.container}>
       <InsideHeader navigation={navigation} title={"Filtro"}></InsideHeader>
@@ -142,9 +145,16 @@ const Filtro =({navigation}) =>{
                 borderColor={{color:'gray'}}
              
             />
-            <Text style={styles.cate}>Rango de Edad</Text>
-           
-
+            <Text style={styles.cate}>Etapa de Vida</Text>
+            <ButtonGroup selectedTextStyle={{color:'black'}} selectedButtonStyle={styles.boton}selectedIndex={etapa} //
+                onPress={(i)=>setEtapa(i)}
+                buttons={button3}
+                containerStyle={{height: 50, weight:20}}
+                buttonContainerStyle={{backgroundColor: 'white'}}
+                textStyle={{color: 'black'}}
+                borderColor={{color:'gray'}}
+             
+            />
         </View>
     </View>
     

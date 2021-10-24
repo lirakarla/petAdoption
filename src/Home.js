@@ -40,6 +40,7 @@ const Home =({navigation}) =>{
         {animals.map(animal=>{
           return <Card key={animal.id} name={animal.name} age={animal.age} gender={animal.gender} url={animal.url}></Card>
         })}
+         <Image source={require("../src/5.png")} style={{height:200, width:400, resizeMode:"contain"}}></Image>
     </View>
     
   );

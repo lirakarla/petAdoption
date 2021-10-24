@@ -15,6 +15,7 @@ import Home from './Home';
 import Location from './Location';
 import Filtro from './Filtro';
 import InsideHeader from './InsideHeader';
+import PerfilMascota from './PerfilMascota';
 const Stack = createNativeStackNavigator();
 
 class App extends Component{
@@ -28,10 +29,11 @@ class App extends Component{
     return(
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown:false}}>
-        <Stack.Screen name="Location" component={Location} />
+         <Stack.Screen name="PerfilMascota" component={PerfilMascota} />
           <Stack.Screen name="Signup" component={Signup} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Filtro" component={Filtro} />
+          <Stack.Screen name="Location" component={Location} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="InsideHeader" component={InsideHeader} />
         </Stack.Navigator>

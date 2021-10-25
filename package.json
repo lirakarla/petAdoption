@@ -14,6 +14,7 @@
     "@react-native-community/picker": "^1.8.1",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
+    "axios": "^0.23.0",
     "emoji-aware": "^3.0.5",
     "react": "17.0.2",
     "react-native": "0.65.1",
@@ -27,8 +28,7 @@
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.8.0",
     "react-native-splash-screen": "^3.2.0",
-    "react-native-vector-icons": "^8.1.0",
-    "rn-range-slider": "^2.1.1"
+    "react-native-vector-icons": "^8.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

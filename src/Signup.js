@@ -1,23 +1,15 @@
 import React, { useState } from 'react';
 import Header from './Header';
+import axios from "axios";
+import {useHistory} from "react-router-dom";
 import {Input, Button} from 'react-native-elements';
 //import Icon from 'react-native-vector-icons/FontAwesome';
 import {withoutEmoji} from "emoji-aware";
-import {
-  
-  Text, StyleSheet, Image, View, StatusBar, KeyboardAvoidingView
-} from 'react-native';
+import {Text, StyleSheet, Image, View, StatusBar, KeyboardAvoidingView,AsyncStorage} from 'react-native';
 
 //para el color gradiente
 import LinearGradient from 'react-native-linear-gradient';
-const signupBack=(correo, contrasena) =>{
-  return new Promise((resolve, reject)=>{
-    //simula back
-    setTimeout(()=>{
-      resolve(false)
-    }, 2000)
-  })
-}
+
 const Signup =({navigation}) =>{
   const [loading,setLoading] = useState(false);
   const [correo,setCorreo] = useState("");
@@ -26,34 +18,48 @@ const Signup =({navigation}) =>{
   const [errorType, setErrorType] =useState("");
   const [errorMessage, setErrorMessage] =useState("");
 
-  const loginPressed=()=>{
-    setLoading(true);
+  const loginPressed=(values)=>{
+    console.log(correo)
     if(!validateEmail(correo)){
-      console.log(correo)
-      setErrorType("Invalid Email") //variables internas
-      setErrorMessage("Ingrese un correo válido")
-      setLoading(false)
-      return
+      return setErrorMessage("Ingrese un correo válido")
+      
     }
-    if(contrasena.length<5 || contrasena!==withoutEmoji(contrasena).join("")){
-        setErrorType("Invalid Password")
-        setLoading(false)
-        return
+    else if(contrasena.length<5 || contrasena!==withoutEmoji(contrasena).join("")){
+      return  setErrorType("Invalid Password")
     }
-    if(contrasena!==confirmContrasena){
-        setErrorType("Invalid Confirmation")
-        setLoading(false)
-        return
+    else if(contrasena!==confirmContrasena){
+      return setErrorType("Invalid Confirmation")
+  
     }
+    else {
     //SIMULACIÓN DEBERIA SER AXIOS
-    signupBack(correo, contrasena).then(result=>{
-      navigation.navigate("Location")
-      //mensajes del catch
-      setLoading(false)
-      setErrorType("Invalid Email")
-      //ME REGRESA EL BACK 409
-      setErrorMessage("Ya existe un usuario con ese correo")
-    })
+        setLoading(true);
+        axios.post("http://10.0.2.2:3001/user/register",{
+          correo: correo, contrasenia:contrasena, confirmacionContrasenia:confirmContrasena
+        }).then(async(res)=>{
+          console.log(res.status)
+          setLoading(false);
+          navigation.navigate("Location")
+          //libreria para guardar info del usuario
+          await AsyncStorage.setItem("user", JSON.stringify(res.data.register))
+        
+        })
+        .catch(error=>{
+          console.log(error.response)
+          if(error.response.status===401){
+            setErrorMessage("Revisar la información ingresada")
+            setErrorType("reapited")
+            console.log(error.response.status)
+          }
+          else if(error.response.status===400){
+            setErrorMessage("La confirmación de contraseña no coincide. ")
+          }
+          else{
+            setErrorMessage("Hay un problema, por favor de intentar más tarde")
+          }
+          setLoading(false);
+       })
+      }
   }
 
   const validateEmail=(email) =>{
@@ -68,8 +74,8 @@ const Signup =({navigation}) =>{
     setContrasena(string);
   }
 
-  const onInputConfirmContrasenaChanged=(string)=>{
-    setConfirmContrasena(string);
+  const onInputConfirmContrasenaChanged=(values)=>{
+    setConfirmContrasena(values);
   }
 
   return (
@@ -92,6 +98,7 @@ const Signup =({navigation}) =>{
           label="Confirmar contraseña"
           placeholder='********'
         />
+        <Text>{errorType==="reapited"?errorMessage:""}</Text>
          <Button loading={loading}  buttonStyle={styles.button} titleStyle={styles.buttonTitle} onPress={loginPressed}
           title="Registrarse"
         />

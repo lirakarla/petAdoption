@@ -47,7 +47,7 @@ const Signup =({navigation}) =>{
         .catch(error=>{
           console.log(error.response)
           if(error.response.status===401){
-            setErrorMessage("Revisar la información ingresada")
+            setErrorMessage("Correo ya existente")
             setErrorType("reapited")
             console.log(error.response.status)
           }
@@ -98,12 +98,12 @@ const Signup =({navigation}) =>{
           label="Confirmar contraseña"
           placeholder='********'
         />
-        <Text>{errorType==="reapited"?errorMessage:""}</Text>
+        <Text style={styles.aviso}>{errorType==="reapited"?errorMessage:""}</Text>
          <Button loading={loading}  buttonStyle={styles.button} titleStyle={styles.buttonTitle} onPress={loginPressed}
           title="Registrarse"
         />
         <Text style={styles.text}>
-           <Text > ¿Ya tienes una cuenta? </Text>
+           <Text> ¿Ya tienes una cuenta? </Text>
            <Text style={styles.regis} onPress={()=>navigation.navigate("Login")}> Inicia Sesión </Text>
         </Text>
       </View>
@@ -112,6 +112,9 @@ const Signup =({navigation}) =>{
 } 
 // estilo =css, es un objeto js
 var styles = {
+  aviso:{
+    color:"red"
+  },
   container:{
       flex:1
   },

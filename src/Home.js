@@ -5,18 +5,14 @@ import {Input, Button} from 'react-native-elements';
 //import Icon from 'react-native-vector-icons/FontAwesome';
 import {withoutEmoji} from "emoji-aware";
 import Icon from 'react-native-vector-icons/AntDesign';
-
-import {
-  
-  Text, StyleSheet, Image, View, StatusBar, KeyboardAvoidingView
-} from 'react-native';
+import {Text, StyleSheet, Image, View, StatusBar, KeyboardAvoidingView} from 'react-native';
 
 const animals=[{
   id:1,
   name:"Gato Persa",
   age: "1 año",
   gender:"Macho",
-  url:"https://estaticos.muyinteresante.es/media/cache/1140x_thumb/uploads/images/gallery/591b07c25bafe832243c986d/gato-persa-gris_0.jpg"
+  url:"https://scontent.fntr3-1.fna.fbcdn.net/v/t1.18169-9/16831854_1284330288315122_4532417466503925827_n.jpg?_nc_cat=109&ccb=1-5&_nc_sid=9267fe&_nc_ohc=b5yGEKUwMccAX942qNn&_nc_ht=scontent.fntr3-1.fna&oh=9cd83d3529dd43f69becf043cbc62e8d&oe=619EDBE7"
 },
 {
   id:2,
@@ -38,9 +34,9 @@ const Home =({navigation}) =>{
         <Icon name="filter" size={25} color="#757574" onPress={()=>navigation.navigate("Filtro")} />
       </View>
         {animals.map(animal=>{
-          return <Card key={animal.id} name={animal.name} age={animal.age} gender={animal.gender} url={animal.url}></Card>
+          return <Card key={animal.id} name={animal.name} age={animal.age} gender={animal.gender} url={animal.url} ></Card>
         })}
-         <Image source={require("../src/5.png")} style={{height:200, width:400, resizeMode:"contain"}}></Image>
+         <Image  source={require("../src/5.png")} style={{height:200, width:400, resizeMode:"contain"}}></Image>
     </View>
     
   );

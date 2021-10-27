@@ -4,15 +4,15 @@ import {Input, Button} from 'react-native-elements';
 //import Icon from 'react-native-vector-icons/FontAwesome';
 import {withoutEmoji} from "emoji-aware";
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {
-  
-  Text, StyleSheet, Image, View, StatusBar, KeyboardAvoidingView
+import {Text, StyleSheet, Image, View, StatusBar, TouchableOpacity, KeyboardAvoidingView,TouchableWithoutFeedback
 } from 'react-native';
 
 
-const Card =({name,age,gender,url}) =>{
+
+
+const Card =({name,age,gender,url,onPress}) =>{
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container}  onPress={()=>onPress()} >
       <Image style={{width:145, height:180, borderRadius:20, resizeMode:"cover"}} source={{uri:url}} ></Image>
       <Icon name="heart-o" size={25} color="#242424" style={{position:"absolute", top:10, right:10}} />
       <View style={{flex:1, justifyContent:"center"}}>
@@ -20,7 +20,7 @@ const Card =({name,age,gender,url}) =>{
         <Text style={styles.age}>{age}</Text>
         <Text style={styles.gender}>{gender}</Text>
       </View>
-    </View>
+    </TouchableOpacity >
     
   );
 } 

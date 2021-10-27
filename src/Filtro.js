@@ -7,8 +7,9 @@ import { ButtonGroup,Button } from 'react-native-elements';
 import ReactNativePickerModule from "react-native-picker-module"
 import {Text, StyleSheet, Image, View, StatusBar, KeyboardAvoidingView, SafeAreaView} from 'react-native';
 import NumericInput from 'react-native-numeric-input'
+import axios from 'axios';
 
-const Filtro =({navigation}) =>{
+const Filtro =({navigation,route}) =>{
   //const renderThumb = useCallback(() => <Thumb/>, []);
   //const renderRail = useCallback(() => <Rail/>, []);
   //const renderRailSelected = useCallback(() => <RailSelected/>, []);
@@ -24,47 +25,22 @@ const Filtro =({navigation}) =>{
   const[scrollEnabled,setScrollEnabled]=useState(true)
   const [valueSucursal, setValueSucursal] = useState()
   const [valueMascota, setValueMascota] = useState()
-  const [valueEdad, setValueEdad] = useState(0)
-  const dataset_1 = [1, 2, "Java", "Kotlin", "C++", "C#", "PHP"]
-  const dataset_2 = [
-    {
-      value: 101,
-      label: "Javascript",
-    },
-    {
-      value: "golang_101",
-      label: "Go",
-    },
-    {
-      value: "kotlin_dsl",
-      label: "Kotlin",
-    },
-    {
-      value: "java_101",
-      label: "Java",
-    },
-    {
-      value: "cplusplus",
-      label: "C++",
-    },
-    {
-      value: "csharp_201",
-      label: "C#",
-    },
-    {
-      value: "php_201",
-      label: "PHP",
-    },
-  ]
+  const [valueEdadInf, setValueEdadInf] = useState(0)
+  const [valueEdadSup, setValueEdadSup] = useState(30)
+  const sucursales = ["Sucursal San Pedro", "Sucursal Cumbres", "Sucursal Gonzalitos", "Sucursal San Nicolas", "Sucursal Garza Sada", "Sucursal Pueblo Serena"]
+  const tipos= ["perro", "gato","conejo", "roedor"]
+
     const [genero,setGenero]=useState(0)
     const [tamanio,setTamanio]=useState(0)
     const [etapa,setEtapa]=useState(0)
     const button1= ['Macho', 'Hembra']
     const button2 = ['Pequeño', 'Mediano','Grande']
-    const button3 = ['Cachorro', 'Adulto','Senior']
+   
+
+
   return (
     <View style={styles.container}>
-      <InsideHeader navigation={navigation} title={"Filtro"}></InsideHeader>
+      <InsideHeader route={route} navigation={navigation} filtrado={{valueSucursal,valueMascota,valueEdadSup,valueEdadInf,genero:button1[genero],tamanio:button2[tamanio]}} title={"Filtro"}></InsideHeader>
         <View style={{padding:20}}>
             <Text style={styles.cate}>Ubicación de Sucursal</Text>
               <Button buttonStyle={{backgroundColor: "#FFFFFF", width:300, marginTop:10,marginBottom:10}} titleStyle={{color:"#8F8F8F"}} title={valueSucursal?valueSucursal:"Selecciona una Sucursal"} onPress={() => pickerRefSucursal.current.show()} />
@@ -72,7 +48,7 @@ const Filtro =({navigation}) =>{
               pickerRef={pickerRefSucursal}
               value={valueSucursal}
               title={valueSucursal}
-              items={dataset_1}
+              items={sucursales}
               titleStyle={{ color: "gray" }}
               itemStyle={{ color: "white" }}
               selectedColor="#FC0"
@@ -102,7 +78,7 @@ const Filtro =({navigation}) =>{
               pickerRef={pickerRefMascota}
               value={valueMascota}
               title={valueMascota}
-              items={dataset_1}
+              items={tipos}
               titleStyle={{ color: "gray" }}
               itemStyle={{ color: "white" }}
               selectedColor="#FC0"
@@ -124,6 +100,7 @@ const Filtro =({navigation}) =>{
               onValueChange={value => {
                 console.log("valueMascota: ", value)
                 setValueMascota(value)
+
               }}
             />
             <Text style={styles.cate}>Género</Text>
@@ -138,7 +115,10 @@ const Filtro =({navigation}) =>{
             />
             <Text style={styles.cate}>Tamaño</Text>
             <ButtonGroup selectedTextStyle={{color:'black'}} selectedButtonStyle={styles.boton}selectedIndex={tamanio} //
-                onPress={(i)=>setTamanio(i)}
+                onPress={(i)=>{
+                  setTamanio(i)
+
+                } }
                 buttons={button2}
                 containerStyle={{height: 50, weight:20}}
                 buttonContainerStyle={{backgroundColor: 'white'}}
@@ -150,11 +130,15 @@ const Filtro =({navigation}) =>{
             <View style={{flexDirection:"row", paddingTop:10}}>
               <View style={{paddingLeft:10,marginRight:35}}>
                 <Text>Edad Mínima</Text>
-                <NumericInput minValue={0} maxValue={6} type='up-down' onChange={valueEdad => console.log(valueEdad)} />
+                <NumericInput value={valueEdadInf} minValue={0} maxValue={30} type='up-down' onChange={valueEdadInf => {
+                  setValueEdadInf(valueEdadInf)
+                  }} />
               </View>
               <View >
                 <Text>Edad Máxima</Text>
-                <NumericInput minValue={0} maxValue={6} type='up-down' onChange={valueEdad => console.log(valueEdad)} />
+                <NumericInput value={valueEdadSup} minValue={0} maxValue={30} type='up-down' onChange={valueEdadSup => {
+                  setValueEdadSup(valueEdadSup)
+                  }} />
               </View>
             </View>
         </View>

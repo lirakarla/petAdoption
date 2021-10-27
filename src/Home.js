@@ -1,28 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import HeaderHome from './HeaderHome';
 import Card from './Card';
 import {Input, Button} from 'react-native-elements';
 //import Icon from 'react-native-vector-icons/FontAwesome';
 import {withoutEmoji} from "emoji-aware";
 import Icon from 'react-native-vector-icons/AntDesign';
-import {Text, StyleSheet, Image, View, StatusBar, KeyboardAvoidingView} from 'react-native';
+import {Text, StyleSheet, Image, View, StatusBar, KeyboardAvoidingView, ScrollView} from 'react-native';
+import axios from "axios";
+import consoleFormat from 'emoji-aware/lib/console-format';
+import PerfilMascota from './PerfilMascota';
 
-const animals=[{
-  id:1,
-  name:"Gato Persa",
-  age: "1 año",
-  gender:"Macho",
-  url:"https://scontent.fntr3-1.fna.fbcdn.net/v/t1.18169-9/16831854_1284330288315122_4532417466503925827_n.jpg?_nc_cat=109&ccb=1-5&_nc_sid=9267fe&_nc_ohc=b5yGEKUwMccAX942qNn&_nc_ht=scontent.fntr3-1.fna&oh=9cd83d3529dd43f69becf043cbc62e8d&oe=619EDBE7"
-},
-{
-  id:2,
-  name:"Husky",
-  age:"6 años",
-  gender:"Hembra",
-  url:"https://www.cronicanorte.es/wp-content/uploads/2020/06/Pomsky_Dog_Breed_-_Pomeranian_Husky_Mix.jpg"
-}]
+
 
 const Home =({navigation}) =>{
+  const [animals, setAnimals]=useState([])
+  const aplicarFiltros=(filtros)=>{
+    //{valueSucursal,valueEdadInf,valueEdadSup,valueMascota,genero,tamanio}
+    console.log(filtros)
+     axios.get("http://10.0.2.2:3001/pet/filtered",{
+       params:{
+        sucursal:filtros.valueSucursal ? filtros.valueSucursal:undefined,
+      tipo:filtros.valueMascota? filtros.valueMascota:undefined,
+      "genero":filtros.genero? filtros.genero:undefined,
+      "tamanio":filtros.tamanio? filtros.tamanio:undefined,
+      edadSup:filtros.valueEdadSup? filtros.valueEdadSup:undefined,
+      edadInf:filtros.valueEdadInf? filtros.valueEdadInf:undefined,
+       }
+       
+     /* 
+      */
+    }).then((res)=>{
+      setAnimals(res.data)
+      //setLoading(false);
+    })
+  }
+
+  useEffect(()=>{
+  
+      axios.get("http://10.0.2.2:3001/pet/initial").then((res)=>{
+        setAnimals(res.data)
+        //setLoading(false);
+      })
+    
+  },[])//parte nueva de react
   return (
     <View style={styles.container}>
       <HeaderHome ></HeaderHome>
@@ -31,12 +51,18 @@ const Home =({navigation}) =>{
           <Text style={styles.ti}>Adopta un Amigo</Text>
           <Text style={styles.sub}>Encuentra a tu mascota favorita</Text>
         </View>
-        <Icon name="filter" size={25} color="#757574" onPress={()=>navigation.navigate("Filtro")} />
+        <Icon name="filter" size={25} color="#757574" onPress={()=>navigation.navigate("Filtro",{
+          onBack:(filtros)=>aplicarFiltros(filtros)
+        })} />
       </View>
+      <ScrollView keyboardShouldPersistTaps='always'keyboardShouldPersistTaps={true} style={{height:700}} >
         {animals.map(animal=>{
-          return <Card key={animal.id} name={animal.name} age={animal.age} gender={animal.gender} url={animal.url} ></Card>
+          return <Card onPress={()=>navigation.navigate("PerfilMascota", {
+            animal:animal
+          })} key={animal.id} name={animal.name} age={animal.age} gender={animal.gender} url={animal.url} ></Card>
         })}
-         <Image  source={require("../src/5.png")} style={{height:200, width:400, resizeMode:"contain"}}></Image>
+        </ScrollView>
+         <Image  source={require("../src/5.png")} style={{height:80, width:400, resizeMode:"contain"}}></Image>
     </View>
     
   );

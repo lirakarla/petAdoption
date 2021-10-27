@@ -11,36 +11,36 @@ import {
 
 //para el color gradiente
 import LinearGradient from 'react-native-linear-gradient';
-const PerfilMascota =({title}) =>{
-  
+const PerfilMascota =({title,route}) =>{
+ const {name, nombre,gender,tamanio,age,url,peso,descripcion}=route.params.animal
   return (
     <View style={styles.container}>   
-         <Image style={{width:"100%", height:250, resizeMode:"cover"}} source={{uri:"https://petsbioforestal.es/wp-content/uploads/2020/02/cuanto-vive-conejo.jpg"}} ></Image>
+         <Image style={{width:"100%", height:250, resizeMode:"cover"}} source={{uri:url}} ></Image>
         <View style={{flexDirection:"row", paddingTop:10}}>
-            <Text style={styles.titulo}>Conejo mix</Text>
+            <Text style={styles.titulo}>{name}</Text>
             <Icon name="heart-o" size={25} color="#242424" style={{position:"absolute", top:10, right:10}} />
         </View>
         <View style={{flexDirection:"row", justifyContent:"flex-start",margin:10}}>
              <Icon1 name="location-pin" size={20} color="#000" />
-            <Text style={{}}>Petco Gonzalitos</Text>
+            <Text style={{}}>{nombre}</Text>
         </View >
 
         <View style={{flexDirection:"row", justifyContent:"space-around"}}>
             <View style={styles.tarjeta}>
                 <Text style={styles.texto}>Edad</Text>
-                <Text style={styles.texto}>1 año</Text>
+                <Text style={styles.texto}>{age} año</Text>
             </View>
             <View style={styles.tarjeta}>
                 <Text style={styles.texto}>Género</Text>
-                <Text style={styles.texto}>Hembra</Text>
+                <Text style={styles.texto}>{gender}</Text>
             </View>
             <View style={styles.tarjeta}>
                 <Text style={styles.texto}>Peso</Text>
-                <Text style={styles.texto}>0.56 KG</Text>
+                <Text style={styles.texto}>{peso}</Text>
             </View>
             <View style={styles.tarjeta}>
                 <Text style={styles.texto}>Tamaño</Text>
-                <Text style={styles.texto}>Pequeño</Text>
+                <Text style={styles.texto}>{tamanio}</Text>
             </View>
         </View> 
         <View style={{margin:20}}>
@@ -48,9 +48,7 @@ const PerfilMascota =({title}) =>{
         </View>
         <View style={{paddingLeft:50}}>
        
-           <Text style={styles.descrip}>{'\u2022' + "Es un conejo de color café con blanco."}</Text>
-           <Text style={styles.descrip}>{'\u2022' + "Su personalidad es muy dormilón y le gusta estar rodeado de gente."}</Text>
-           <Text style={styles.descrip}>{'\u2022' + " Ya cuenta con vacunas y está desparasitado."}</Text>
+           <Text style={styles.descrip}>{'\u2022'}  {descripcion}</Text>
         </View>
         <View>
         

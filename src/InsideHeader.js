@@ -8,8 +8,8 @@ import {
 
 //para el color gradiente
 import LinearGradient from 'react-native-linear-gradient';
-const InsideHeader =({title, navigation}) =>{
-  
+const InsideHeader =({title, navigation, filtrado,route}) =>{
+ 
   return (
     <View style={styles.header}>   
     <StatusBar
@@ -20,9 +20,15 @@ const InsideHeader =({title, navigation}) =>{
     hidden={false} />
 
      <View style={{flexDirection:'row',justifyContent:'space-around', alignItems:"center"}} >
-            <Icon name="arrowleft" size={25} color="#000" onPress={()=>navigation.pop()} />
+            <Icon name="arrowleft" size={25} color="#000" onPress={()=>{
+              route.params.onBack(filtrado)
+              navigation.pop()
+            }} />
             <Text style={styles.headerTitulo}>{title}</Text>
-            <Text style={styles.link} >{"Limpiar"} </Text>
+            <Text style={styles.link}  onPress={()=>{
+              route.params.onBack({})
+              navigation.pop()
+            }}>{"Limpiar"} </Text>
       </View>
     </View>
   );

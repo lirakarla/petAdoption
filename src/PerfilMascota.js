@@ -28,7 +28,7 @@ const PerfilMascota =({title,route}) =>{
         <View style={{flexDirection:"row", justifyContent:"space-around"}}>
             <View style={styles.tarjeta}>
                 <Text style={styles.texto}>Edad</Text>
-                <Text style={styles.texto}>{age} año</Text>
+                <Text style={styles.texto}>{age} años</Text>
             </View>
             <View style={styles.tarjeta}>
                 <Text style={styles.texto}>Género</Text>
@@ -36,7 +36,7 @@ const PerfilMascota =({title,route}) =>{
             </View>
             <View style={styles.tarjeta}>
                 <Text style={styles.texto}>Peso</Text>
-                <Text style={styles.texto}>{peso}</Text>
+                <Text style={styles.texto}>2 KG</Text>
             </View>
             <View style={styles.tarjeta}>
                 <Text style={styles.texto}>Tamaño</Text>
@@ -47,8 +47,9 @@ const PerfilMascota =({title,route}) =>{
            <Text style={styles.descrip}>Descripción</Text>
         </View>
         <View style={{paddingLeft:50}}>
-       
-           <Text style={styles.descrip}>{'\u2022'}  {descripcion}</Text>
+           <Text style={styles.descrip}>{'\u2022'+" Es una mascota muy jugetona"}</Text>
+           <Text style={styles.descrip}>{'\u2022'+" Cuenta con toda su cartilla de vacunación"}</Text>
+           <Text style={styles.descrip}>{'\u2022'+" Es necesaria su esterilización."}</Text>
         </View>
         <View>
         

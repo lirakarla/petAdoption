@@ -29,13 +29,14 @@ class App extends Component{
     return(
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown:false}}>
-        <Stack.Screen name="Home" component={Home} />
+        
+       
+        
         <Stack.Screen name="Signup" component={Signup} />
+        <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Filtro" component={Filtro} />
-          
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Location" component={Location} />
-          
           <Stack.Screen name="PerfilMascota" component={PerfilMascota} />
           <Stack.Screen name="InsideHeader" component={InsideHeader} />
         </Stack.Navigator>

@@ -5,6 +5,8 @@ import {Input, Button} from 'react-native-elements';
 //import Icon from 'react-native-vector-icons/FontAwesome';
 import {withoutEmoji} from "emoji-aware";
 import Icon from 'react-native-vector-icons/AntDesign';
+import IconM from 'react-native-vector-icons/Ionicons';
+import Icon2 from 'react-native-vector-icons/FontAwesome';
 import {Text, StyleSheet, Image, View, StatusBar, KeyboardAvoidingView, ScrollView} from 'react-native';
 import axios from "axios";
 import consoleFormat from 'emoji-aware/lib/console-format';
@@ -62,7 +64,18 @@ const Home =({navigation}) =>{
           })} key={animal.id} name={animal.name} age={animal.age} gender={animal.gender} url={animal.url} ></Card>
         })}
         </ScrollView>
-         <Image  source={require("../src/5.png")} style={{height:80, width:400, resizeMode:"contain"}}></Image>
+        <View style={{flexDirection:"row", marginTop:8}}>
+           <IconM  style={{marginRight:52}} name="ios-home-sharp" size={34} color="#FFD46F"/>
+           <Icon2 style={{marginRight:52}} name="calendar-plus-o" size={33} color="#757574"/>
+           <Icon2  style={{marginRight:52}} name="heart-o" size={33} color="#757574"/>
+           <Icon2  style={{marginRight:9}} name="user-o" size={34} color="#757574"/>
+        </View>
+        <View style={{flexDirection:"row", marginBottom:5}}>
+           <Text style={{marginRight:52}}>Inicio</Text>
+           <Text style={{marginRight:40}}>Citas</Text>
+           <Text style={{marginRight:36}}>Favoritos</Text>
+           <Text  style={{marginRight:8}}>Perfil</Text>
+        </View>
     </View>
     
   );

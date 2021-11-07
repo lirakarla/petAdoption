@@ -1,3 +1,3 @@
 # App de petAdoption
 Front: React
-login y avance ()primer entregable
+login y avance (primer entregable)

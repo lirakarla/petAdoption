@@ -6,15 +6,38 @@ import {withoutEmoji} from "emoji-aware";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Text, StyleSheet, Image, View, StatusBar, TouchableOpacity, KeyboardAvoidingView,TouchableWithoutFeedback
 } from 'react-native';
+import axios from 'axios';
+import { AsyncStorage } from 'react-native';
 
 
 
 
-const Card =({name,age,gender,url,onPress}) =>{
+const Card =({name,age,gender,url,onPress,idMascota,favorito,getAnimals}) =>{
+  const [loading,setLoading]=useState (false)
   return (
-    <TouchableOpacity style={styles.container}  onPress={()=>onPress()} >
-      <Image style={{width:145, height:180, borderRadius:20, resizeMode:"cover"}} source={{uri:url}} ></Image>
-      <Icon name="heart-o" size={25} color="#242424" style={{position:"absolute", top:10, right:10}} />
+    <TouchableOpacity style={styles.container}  >
+      <Image style={{width:145, height:180, borderRadius:20, resizeMode:"cover"}} source={{uri:url}} onPress={()=>onPress()} ></Image>
+      <Icon name={favorito==1?"heart":"heart-o"} size={25} color="#EAC56E" style={{position:"absolute", top:10, right:10}} onPress={async ()=>{
+         // const user= JSON.parse(await AsyncStorage.getItem("user"))
+          const user={
+            correo:"irving@udem.edu"
+          }
+        
+          setLoading(true)
+          console.log(favorito)
+          if(favorito==1){
+            axios.delete("http://10.0.2.2:3001/pet/favorito/"+idMascota+"/"+user.correo).then(async(res)=>{
+              getAnimals()
+            })
+          }
+          else{
+            axios.post("http://10.0.2.2:3001/pet/favorito",{
+              correoPosibleDueno: user.correo, idMascota
+            }).then(async(res)=>{
+              getAnimals()
+            })
+          }
+      }}/>
       <View style={{flex:1, justifyContent:"center"}}>
         <Text style={styles.animal}>{name}</Text>
         <Text style={styles.age}>{age}</Text>

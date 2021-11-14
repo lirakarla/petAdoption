@@ -27,7 +27,7 @@ const HeaderNav =({title}) =>{
 
         <View style={{height:50,width:250}}>
           <View style={{flexDirection:"row", justifyContent:"center", alignItems:"center", alignSelf:"center"}}>
-            <Text style={styles.headerTitulo}>{"Citas"}</Text>
+            <Text style={styles.headerTitulo}>{title}</Text>
          </View>
         </View>
         

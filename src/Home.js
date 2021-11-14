@@ -19,30 +19,42 @@ const Home =({navigation}) =>{
   const aplicarFiltros=(filtros)=>{
     //{valueSucursal,valueEdadInf,valueEdadSup,valueMascota,genero,tamanio}
     console.log(filtros)
+    const user={
+      correo:"irving@udem.edu"
+    }
      axios.get("http://10.0.2.2:3001/pet/filtered",{
        params:{
         sucursal:filtros.valueSucursal ? filtros.valueSucursal:undefined,
-      tipo:filtros.valueMascota? filtros.valueMascota:undefined,
-      "genero":filtros.genero? filtros.genero:undefined,
-      "tamanio":filtros.tamanio? filtros.tamanio:undefined,
-      edadSup:filtros.valueEdadSup? filtros.valueEdadSup:undefined,
-      edadInf:filtros.valueEdadInf? filtros.valueEdadInf:undefined,
-       }
+        tipo:filtros.valueMascota? filtros.valueMascota:undefined,
+        "genero":filtros.genero? filtros.genero:undefined,
+        "tamanio":filtros.tamanio? filtros.tamanio:undefined,
+        edadSup:filtros.valueEdadSup? filtros.valueEdadSup:undefined,
+        edadInf:filtros.valueEdadInf? filtros.valueEdadInf:undefined,
+        correoPosibleDueno:user.correo
+        }
        
      /* 
       */
     }).then((res)=>{
       setAnimals(res.data)
+      console.log("prueba",res.data)
       //setLoading(false);
     })
   }
-
+  const getAnimals=()=>{
+    const user={
+      correo:"irving@udem.edu"
+    }
+    axios.get("http://10.0.2.2:3001/pet/initial",{
+      params:{
+       correoPosibleDueno:user.correo
+       }}).then((res)=>{
+      setAnimals(res.data)
+      //setLoading(false);
+    })
+  }
   useEffect(()=>{
-  
-      axios.get("http://10.0.2.2:3001/pet/initial").then((res)=>{
-        setAnimals(res.data)
-        //setLoading(false);
-      })
+      getAnimals()
     
   },[])//parte nueva de react
   return (
@@ -61,14 +73,14 @@ const Home =({navigation}) =>{
         {animals.map(animal=>{
           return <Card onPress={()=>navigation.navigate("PerfilMascota", {
             animal:animal
-          })} key={animal.id} name={animal.name} age={animal.age} gender={animal.gender} url={animal.url} ></Card>
+          })} key={animal.id} getAnimals={getAnimals} favorito={animal.favorito} idMascota={animal.id} name={animal.name} age={animal.age} gender={animal.gender} url={animal.url} ></Card>
         })}
         </ScrollView>
         <View style={{flexDirection:"row", marginTop:8}}>
-           <IconM  style={{marginRight:52}} name="ios-home-sharp" size={34} color="#FFD46F"/>
-           <Icon2 style={{marginRight:52}} name="calendar-plus-o" size={33} color="#757574"/>
-           <Icon2  style={{marginRight:52}} name="heart-o" size={33} color="#757574"/>
-           <Icon2  style={{marginRight:9}} name="user-o" size={34} color="#757574"/>
+           <IconM  onPress={()=>navigation.navigate("Home")} style={{marginRight:52}} name="ios-home-sharp" size={34} color="#FFD46F"/>
+           <Icon2 onPress={()=>navigation.navigate("Citas")} style={{marginRight:52}} name="calendar-plus-o" size={33} color="#757574"/>
+           <Icon2  onPress={()=>navigation.navigate("Favoritos")} style={{marginRight:52}} name="heart-o" size={33} color="#757574"/>
+           <Icon2  onPress={()=>navigation.navigate("PerfilUsuario")} style={{marginRight:9}} name="user-o" size={34} color="#757574"/>
         </View>
         <View style={{flexDirection:"row", marginBottom:5}}>
            <Text style={{marginRight:52}}>Inicio</Text>

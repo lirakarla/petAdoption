@@ -6,7 +6,7 @@ import IconM from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
 import {Text, StyleSheet, Image, View, StatusBar, KeyboardAvoidingView, ScrollView} from 'react-native';
 import axios from "axios";
-
+import CardCitas from'./CardCitas';
 
 
 
@@ -14,20 +14,21 @@ const Citas =({navigation}) =>{
 
   return (
     <View style={styles.container}>
-      <HeaderNav></HeaderNav>
+      <HeaderNav title={"Citas"}></HeaderNav>
       <View style={{flexDirection:"row"}}>
         <View>
         
         </View>
       </View>
       <ScrollView keyboardShouldPersistTaps='always'keyboardShouldPersistTaps={true} style={{height:700}} >
-    
-        </ScrollView>
+       <CardCitas name={"Conejo mix"} onPress={()=>navigation.navigate("PerfilMascota")}/>
+        
+      </ScrollView>
         <View style={{flexDirection:"row", marginTop:8}}>
-           <IconM  style={{marginRight:52}} name="ios-home-outline" size={34} color="#3E3E3E"/>
+           <IconM  onPress={()=>navigation.navigate("Home")} style={{marginRight:52}} name="ios-home-outline" size={34} color="#3E3E3E"/>
            <Icon style={{marginRight:56}} name="calendar" size={40} color="#FFD46F"/>
-           <Icon2  style={{marginRight:56, marginTop:6}} name="heart-o" size={30} color="#3E3E3E"/>
-           <Icon2  style={{marginRight:11, marginTop:6}} name="user-o" size={30} color="#3E3E3E"/>
+           <Icon2  onPress={()=>navigation.navigate("Favoritos")} style={{marginRight:56, marginTop:6}} name="heart-o" size={30} color="#3E3E3E"/>
+           <Icon2  onPress={()=>navigation.navigate("PerfilUsuario")} style={{marginRight:11, marginTop:6}} name="user-o" size={30} color="#3E3E3E"/>
         </View>
         <View style={{flexDirection:"row", marginBottom:5}}>
            <Text style={{marginRight:52}}>Inicio</Text>

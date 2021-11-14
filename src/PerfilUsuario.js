@@ -14,7 +14,7 @@ const PerfilUsuario =({title, navigation}) =>{
 
   return (
     <View style={styles.container}>
-      <HeaderNav></HeaderNav>
+      <HeaderNav title="Perfil"></HeaderNav>
       <View style={{flexDirection:"row"}}>
         <View>
         
@@ -24,9 +24,9 @@ const PerfilUsuario =({title, navigation}) =>{
     
         </ScrollView>
         <View style={{flexDirection:"row", marginTop:8}}>
-           <IconM  style={{marginRight:52}} name="ios-home-outline" size={34} color="#3E3E3E"/>
-           <Icon2 style={{marginRight:52}} name="calendar-plus-o" size={33} color="#757574"/>
-           <Icon2  style={{marginRight:56, marginTop:4}} name="heart-o" size={34} color="#3E3E3E"/>
+           <IconM  onPress={()=>navigation.navigate("Home")} style={{marginRight:52}} name="ios-home-outline" size={34} color="#3E3E3E"/>
+           <Icon2 onPress={()=>navigation.navigate("Citas")} style={{marginRight:52}} name="calendar-plus-o" size={33} color="#757574"/>
+           <Icon2  onPress={()=>navigation.navigate("Favoritos")} style={{marginRight:56, marginTop:4}} name="heart-o" size={34} color="#3E3E3E"/>
            <Icon2  style={{marginRight:11, marginTop:6}} name="user" size={30} color="#FFD46F"/>
         </View>
         <View style={{flexDirection:"row", marginBottom:5}}>

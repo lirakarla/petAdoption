@@ -71,7 +71,7 @@ const Home =({navigation}) =>{
       </View>
       <ScrollView keyboardShouldPersistTaps='always'keyboardShouldPersistTaps={true} style={{height:700}} >
         {animals.map(animal=>{
-          return <Card onPress={()=>navigation.navigate("PerfilMascota", {
+          return <Card onPressed={()=>navigation.navigate("PerfilMascota", {
             animal:animal
           })} key={animal.id} getAnimals={getAnimals} favorito={animal.favorito} idMascota={animal.id} name={animal.name} age={animal.age} gender={animal.gender} url={animal.url} ></Card>
         })}

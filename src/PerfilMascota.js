@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon1 from 'react-native-vector-icons/SimpleLineIcons';
-import {Input, Button} from 'react-native-elements';
+import {Input, Button, Overlay} from 'react-native-elements';
 import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons';
+import SolicitarAdop from './SolicitarAdop'
 
 import {
   
@@ -12,10 +13,15 @@ import {
 //para el color gradiente
 import LinearGradient from 'react-native-linear-gradient';
 const PerfilMascota =({title,route}) =>{
- const {name, nombre,gender,tamanio,age,url,peso,descripcion}=route.params.animal
+const {name, nombre,gender,tamanio,age,url,peso,descripcion}=route.params.animal
+const [visible,setVisible]=useState(false)
+const toggleOverlay = () => {
+  setVisible(!visible);
+};
   return (
     <View style={styles.container}>   
-         <Image style={{width:"100%", height:250, resizeMode:"cover"}} source={{uri:url}} ></Image>
+          <SolicitarAdop isVisible={visible} onBackdropPress={toggleOverlay}></SolicitarAdop>
+        <Image style={{width:"100%", height:250, resizeMode:"cover"}} source={{uri:url}} ></Image>
         <View style={{flexDirection:"row", paddingTop:10}}>
             <Text style={styles.titulo}>{name}</Text>
             <Icon name="heart-o" size={25} color="#242424" style={{position:"absolute", top:10, right:10}} />
@@ -55,6 +61,7 @@ const PerfilMascota =({title,route}) =>{
         
         <Button  buttonStyle={styles.button} titleStyle={styles.buttonTitle} 
           title="Solicitar Adoptar"
+          onPress={()=>setVisible(true)}
         />
         </View>
     </View>

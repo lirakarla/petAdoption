@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
 import Header from './Header';
 import {Input, Button} from 'react-native-elements';
-//import Icon from 'react-native-vector-icons/FontAwesome';
 import {withoutEmoji} from "emoji-aware";
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {Text, StyleSheet, Image, View, StatusBar, TouchableOpacity, KeyboardAvoidingView,TouchableWithoutFeedback
-} from 'react-native';
+import {Text, StyleSheet, Image, View, StatusBar, TouchableOpacity, KeyboardAvoidingView,TouchableWithoutFeedback} from 'react-native';
 import axios from 'axios';
 import { AsyncStorage } from 'react-native';
 
 
 
 
-const Card =({name,age,gender,url,onPress,idMascota,favorito,getAnimals}) =>{
+const Card =({name,age,gender,url,onPress,idMascota,favorito,getAnimals,onPressed}) =>{
   const [loading,setLoading]=useState (false)
   return (
-    <TouchableOpacity style={styles.container}  >
-      <Image style={{width:145, height:180, borderRadius:20, resizeMode:"cover"}} source={{uri:url}} onPress={()=>onPress()} ></Image>
+    <View style={styles.container}  >
+      <TouchableOpacity onPress={()=>onPressed()}>
+        <Image style={{width:145, height:180, borderRadius:20, resizeMode:"cover"}} source={{uri:url}}  ></Image>
+      </TouchableOpacity>
       <Icon name={favorito==1?"heart":"heart-o"} size={25} color="#EAC56E" style={{position:"absolute", top:10, right:10}} onPress={async ()=>{
          // const user= JSON.parse(await AsyncStorage.getItem("user"))
           const user={
@@ -43,7 +43,7 @@ const Card =({name,age,gender,url,onPress,idMascota,favorito,getAnimals}) =>{
         <Text style={styles.age}>{age}</Text>
         <Text style={styles.gender}>{gender}</Text>
       </View>
-    </TouchableOpacity >
+    </View>
     
   );
 } 

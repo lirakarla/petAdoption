@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon1 from 'react-native-vector-icons/SimpleLineIcons';
 import {Input, Button, Overlay} from 'react-native-elements';
 import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons';
 import SolicitarAdop from './SolicitarAdop'
+import axios from 'axios';
+import { AsyncStorage } from 'react-native';
 
 import {
   
@@ -13,18 +15,62 @@ import {
 //para el color gradiente
 import LinearGradient from 'react-native-linear-gradient';
 const PerfilMascota =({title,route}) =>{
-const {name, nombre,gender,tamanio,age,url,peso,descripcion}=route.params.animal
+const {name, nombre,gender,tamanio,age,url,peso,descripcion,id}=route.params.animal
+const{getAnimals}=route.params
 const [visible,setVisible]=useState(false)
+const [favorito,setFavorito]=useState(false)
 const toggleOverlay = () => {
   setVisible(!visible);
 };
+const[currentCita,setCurrentCita]=useState(false)
+
+  const getCurrentCita=()=>{
+    axios.get("http://10.0.2.2:3001/cita/checkCita/"+id+"/"+"irving@udem.edu").then(res=>{
+      setCurrentCita(res.data.cita)
+      console.log(res.data)
+    })
+  }
+  useEffect(() => {
+   getCurrentCita()
+   getFavorito()
+  }, []);
+  
+  const getFavorito=()=>{
+    axios.get("http://10.0.2.2:3001/pet/favoritos",{
+      params:{
+       correoPosibleDueno:"irving@udem.edu"
+       }}).then((res)=>{
+         const filtrado=res.data.filter(mascota =>mascota.id==id)
+         setFavorito(filtrado.length>0)
+    })
+  }
   return (
     <View style={styles.container}>   
-          <SolicitarAdop isVisible={visible} onBackdropPress={toggleOverlay}></SolicitarAdop>
+          <SolicitarAdop isVisible={visible} idMascota={id} getCurrentCita={getCurrentCita} toggleOverlay={toggleOverlay}></SolicitarAdop>
         <Image style={{width:"100%", height:250, resizeMode:"cover"}} source={{uri:url}} ></Image>
         <View style={{flexDirection:"row", paddingTop:10}}>
             <Text style={styles.titulo}>{name}</Text>
-            <Icon name="heart-o" size={25} color="#242424" style={{position:"absolute", top:10, right:10}} />
+            <Icon name={favorito?"heart":"heart-o"} size={25} color="#EAC56E" style={{position:"absolute", top:10, right:10}} onPress={async ()=>{
+            // const user= JSON.parse(await AsyncStorage.getItem("user"))
+              const user={
+                correo:"irving@udem.edu"
+              }
+              console.log(favorito)
+              if(favorito){
+                axios.delete("http://10.0.2.2:3001/pet/favorito/"+id+"/"+"irving@udem.edu").then(async(res)=>{
+                  getFavorito()
+                  getAnimals()
+                }).catch(error=>console.log(error))
+              }
+              else{
+                axios.post("http://10.0.2.2:3001/pet/favorito",{
+                  correoPosibleDueno: "irving@udem.edu", idMascota:id
+                }).then(async(res)=>{
+                  getFavorito()
+                  getAnimals()
+                }).catch(error=>console.log(error))
+              }
+          }}/>
         </View>
         <View style={{flexDirection:"row", justifyContent:"flex-start",margin:10}}>
              <Icon1 name="location-pin" size={20} color="#000" />
@@ -62,6 +108,7 @@ const toggleOverlay = () => {
         <Button  buttonStyle={styles.button} titleStyle={styles.buttonTitle} 
           title="Solicitar Adoptar"
           onPress={()=>setVisible(true)}
+          disabled={currentCita}
         />
         </View>
     </View>

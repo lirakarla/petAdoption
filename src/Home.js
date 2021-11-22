@@ -45,6 +45,7 @@ const Home =({navigation}) =>{
     const user={
       correo:"irving@udem.edu"
     }
+    console.log("getAnimals")
     axios.get("http://10.0.2.2:3001/pet/initial",{
       params:{
        correoPosibleDueno:user.correo
@@ -72,7 +73,8 @@ const Home =({navigation}) =>{
       <ScrollView keyboardShouldPersistTaps='always'keyboardShouldPersistTaps={true} style={{height:700}} >
         {animals.map(animal=>{
           return <Card onPressed={()=>navigation.navigate("PerfilMascota", {
-            animal:animal
+            animal:animal,
+            getAnimals:()=>getAnimals()
           })} key={animal.id} getAnimals={getAnimals} favorito={animal.favorito} idMascota={animal.id} name={animal.name} age={animal.age} gender={animal.gender} url={animal.url} ></Card>
         })}
         </ScrollView>

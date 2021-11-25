@@ -8,7 +8,7 @@ import {
 
 //para el color gradiente
 import LinearGradient from 'react-native-linear-gradient';
-const InsideHeader =({title, navigation, filtrado,route}) =>{
+const InsideHeader =({title,accion, navigation, filtrado,route}) =>{
  
   return (
     <View style={styles.header}>   
@@ -28,7 +28,7 @@ const InsideHeader =({title, navigation, filtrado,route}) =>{
             <Text style={styles.link}  onPress={()=>{
               route.params.onBack({})
               navigation.pop()
-            }}>{"Limpiar"} </Text>
+            }}>{accion} </Text>
       </View>
     </View>
   );

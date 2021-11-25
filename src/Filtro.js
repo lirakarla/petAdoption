@@ -40,7 +40,7 @@ const Filtro =({navigation,route}) =>{
 
   return (
     <View style={styles.container}>
-      <InsideHeader route={route} navigation={navigation} filtrado={{valueSucursal,valueMascota,valueEdadSup,valueEdadInf,genero:button1[genero],tamanio:button2[tamanio]}} title={"Filtro"}></InsideHeader>
+      <InsideHeader route={route} navigation={navigation} filtrado={{valueSucursal,valueMascota,valueEdadSup,valueEdadInf,genero:button1[genero],tamanio:button2[tamanio]}} title={"Filtro"} accion={"Limpiar"}></InsideHeader>
         <View style={{padding:20}}>
             <Text style={styles.cate}>Ubicación de Sucursal</Text>
               <Button buttonStyle={{backgroundColor: "#FFFFFF", width:300, marginTop:10,marginBottom:10}} titleStyle={{color:"#8F8F8F"}} title={valueSucursal?valueSucursal:"Selecciona una Sucursal"} onPress={() => pickerRefSucursal.current.show()} />

@@ -20,6 +20,7 @@ import PerfilMascota from './PerfilMascota';
 import Citas from './Citas';
 import Favoritos from './Favoritos';
 import PerfilUsuario from './PerfilUsuario';
+import EditarPerfil from './EditarPerfil';
 const Stack = createNativeStackNavigator();
 
 class App extends Component{
@@ -34,6 +35,7 @@ class App extends Component{
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown:false}}>
         <Stack.Screen name="PerfilUsuario" component={PerfilUsuario} />
+        <Stack.Screen name="EditarPerfil" component={EditarPerfil} />
         <Stack.Screen name="Favoritos" component={Favoritos} />
         <Stack.Screen name="Citas" component={Citas} />
         <Stack.Screen name="Home" component={Home} />

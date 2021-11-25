@@ -15,11 +15,11 @@ import {
 } from 'react-native';
 import axios from 'axios';
 
-const PerfilUsuario = ({title, navigation}) => {
+const PerfilUsuario = ({navigation}) => {
   return (
     <View style={styles.container}>
       <HeaderNav title="Perfil"></HeaderNav>
-        <Text style={styles.regis}>Editar</Text>
+        <Text style={styles.regis} onPress={()=>navigation.navigate("EditarPerfil")}>Editar</Text>
         <View style={{justifyContent: 'center', alignItems: 'center'}}>
           <IconM name="person-circle" size={100} color="#EAC56E" />
           <Text style={styles.label}>Karla Lira</Text>

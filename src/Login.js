@@ -68,7 +68,6 @@ const Login =({navigation}) =>{
           placeholder='user@email.com'
         />
         <Input secureTextEntry={true}  labelStyle={styles.label}  containerStyle={styles.input} onChangeText={onInputContrasenaChanged} errorMessage={errorMessage==="Invalid Credential"?"El correo y la contraseña no coinciden":""} 
-          label="Correo"
           label="Contraseña"
           placeholder='********'
         />

@@ -22,8 +22,8 @@ const Citas =({navigation}) =>{
       </View>
       <ScrollView keyboardShouldPersistTaps='always'keyboardShouldPersistTaps={true} style={{height:700}} >
        <CardCitas name={"Conejo mix"} onPress={()=>navigation.navigate("PerfilMascota")}/>
-        
       </ScrollView>
+      
         <View style={{flexDirection:"row", marginTop:8}}>
            <IconM  onPress={()=>navigation.navigate("Home")} style={{marginRight:52}} name="ios-home-outline" size={34} color="#3E3E3E"/>
            <Icon style={{marginRight:56}} name="calendar" size={40} color="#FFD46F"/>

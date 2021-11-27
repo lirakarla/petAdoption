@@ -45,18 +45,13 @@ const PerfilUsuario = ({navigation}) => {
             </View>
           </View>
           <Text style={{marginTop:30,fontWeight:"600",marginLeft:15, fontSize:16}}>¿Porqué quiero una mascota?</Text>
-          <View style={{flex: 0.6,marginTop:20, borderRadius:20, backgroundColor:"#E5E5E5",width:350,heigth:800}}>
+          <View style={{flex:0.5,marginTop:20, borderRadius:20, backgroundColor:"#E5E5E5",width:350,heigth:800}}>
           <Text style={{margin:9}}>Para matar cachorros</Text>
           </View>
         </View>
-  
 
-      <ScrollView
-        keyboardShouldPersistTaps="always"
-        keyboardShouldPersistTaps={true}
-        style={{height: 700}}></ScrollView>
 
-      <View style={{flexDirection: 'row'}}>
+      <View style={{flexDirection: 'row', position: "absolute",bottom:40,marginTop:8}}>
         <IconM
           onPress={() => navigation.navigate('Home')}
           style={{marginRight: 52}}
@@ -85,7 +80,7 @@ const PerfilUsuario = ({navigation}) => {
           color="#FFD46F"
         />
       </View>
-      <View style={{flexDirection: 'row', marginBottom: 5}}>
+      <View style={{flexDirection: 'row', marginBottom: 5, position: "absolute",bottom:10}}>
         <Text style={{marginRight: 52}}>Inicio</Text>
         <Text style={{marginRight: 44}}>Citas</Text>
         <Text style={{marginRight: 36}}>Favoritos</Text>
@@ -97,7 +92,7 @@ const PerfilUsuario = ({navigation}) => {
 // estilo =css, es un objeto js
 var styles = {
   container: {
-    flex: 0.74,
+    flex: 1,
     backgroundColor: '#F3F2EF',
     alignItems: 'center',
   },

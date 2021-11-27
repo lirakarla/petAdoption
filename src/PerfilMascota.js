@@ -27,7 +27,6 @@ const[currentCita,setCurrentCita]=useState(false)
   const getCurrentCita=()=>{
     axios.get("http://10.0.2.2:3001/cita/checkCita/"+id+"/"+"irving@udem.edu").then(res=>{
       setCurrentCita(res.data.cita)
-      console.log(res.data)
     })
   }
   useEffect(() => {
@@ -55,7 +54,6 @@ const[currentCita,setCurrentCita]=useState(false)
               const user={
                 correo:"irving@udem.edu"
               }
-              console.log(favorito)
               if(favorito){
                 axios.delete("http://10.0.2.2:3001/pet/favorito/"+id+"/"+"irving@udem.edu").then(async(res)=>{
                   getFavorito()

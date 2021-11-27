@@ -17,7 +17,6 @@ const Login =({navigation}) =>{
   const loginPressed=()=>{
     setLoading(true);
     if(!validateEmail(correo)){
-      console.log(correo)
       setErrorMessage("Invalid Email") //variables internas
       setLoading(false)
       return
@@ -28,7 +27,6 @@ const Login =({navigation}) =>{
           axios.post("http://10.0.2.2:3001/user/login",{
             correo: correo, contrasenia:contrasena
           }).then(async(res)=>{
-            console.log(res.status)
             setLoading(false);
             navigation.navigate("Location")
             //libreria para guardar info del usuario
@@ -36,11 +34,9 @@ const Login =({navigation}) =>{
           
           })
           .catch(error=>{
-            console.log(error.response)
             if(error.response.status===400){
               setErrorMessage("Correo o contraseña incorrectos")
               setErrorType("reapited")
-              console.log(error.response.status)
               setLoading(false);
             }
          })

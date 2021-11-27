@@ -18,7 +18,6 @@ const Home =({navigation}) =>{
   const [animals, setAnimals]=useState([])
   const aplicarFiltros=(filtros)=>{
     //{valueSucursal,valueEdadInf,valueEdadSup,valueMascota,genero,tamanio}
-    console.log(filtros)
     const user={
       correo:"irving@udem.edu"
     }
@@ -37,7 +36,6 @@ const Home =({navigation}) =>{
       */
     }).then((res)=>{
       setAnimals(res.data)
-      console.log("prueba",res.data)
       //setLoading(false);
     })
   }
@@ -45,7 +43,6 @@ const Home =({navigation}) =>{
     const user={
       correo:"irving@udem.edu"
     }
-    console.log("getAnimals")
     axios.get("http://10.0.2.2:3001/pet/initial",{
       params:{
        correoPosibleDueno:user.correo
@@ -70,7 +67,7 @@ const Home =({navigation}) =>{
           onBack:(filtros)=>aplicarFiltros(filtros)
         })} />
       </View>
-      <ScrollView keyboardShouldPersistTaps='always'keyboardShouldPersistTaps={true} style={{height:700}} >
+      <ScrollView keyboardShouldPersistTaps='always'keyboardShouldPersistTaps="always" style={{height:700}} >
         {animals.map(animal=>{
           return <Card onPressed={()=>navigation.navigate("PerfilMascota", {
             animal:animal,

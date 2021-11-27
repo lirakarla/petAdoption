@@ -34,11 +34,13 @@ class App extends Component{
     return(
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown:false}}>
-        <Stack.Screen name="PerfilUsuario" component={PerfilUsuario} />
         <Stack.Screen name="EditarPerfil" component={EditarPerfil} />
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="PerfilUsuario" component={PerfilUsuario} />
+        
         <Stack.Screen name="Favoritos" component={Favoritos} />
         <Stack.Screen name="Citas" component={Citas} />
-        <Stack.Screen name="Home" component={Home} />
+        
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="Filtro" component={Filtro} />
           <Stack.Screen name="Login" component={Login} />

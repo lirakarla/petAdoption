@@ -19,7 +19,6 @@ const Signup =({navigation}) =>{
   const [errorMessage, setErrorMessage] =useState("");
 
   const loginPressed=(values)=>{
-    console.log(correo)
     if(!validateEmail(correo)){
       return setErrorMessage("Ingrese un correo válido")
       
@@ -37,7 +36,6 @@ const Signup =({navigation}) =>{
         axios.post("http://10.0.2.2:3001/user/register",{
           correo: correo, contrasenia:contrasena, confirmacionContrasenia:confirmContrasena
         }).then(async(res)=>{
-          console.log(res.status)
           setLoading(false);
           navigation.navigate("Location")
           //libreria para guardar info del usuario
@@ -45,11 +43,9 @@ const Signup =({navigation}) =>{
         
         })
         .catch(error=>{
-          console.log(error.response)
           if(error.response.status===401){
             setErrorMessage("Correo ya existente")
             setErrorType("reapited")
-            console.log(error.response.status)
           }
           else if(error.response.status===400){
             setErrorMessage("La confirmación de contraseña no coincide. ")

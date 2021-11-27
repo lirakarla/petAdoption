@@ -20,7 +20,7 @@ const Citas =({navigation}) =>{
         
         </View>
       </View>
-      <ScrollView keyboardShouldPersistTaps='always'keyboardShouldPersistTaps={true} style={{height:700}} >
+      <ScrollView keyboardShouldPersistTaps='always'keyboardShouldPersistTaps="always" style={{height:700}} >
        <CardCitas name={"Conejo mix"} onPress={()=>navigation.navigate("PerfilMascota")}/>
       </ScrollView>
       

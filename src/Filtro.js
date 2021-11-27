@@ -65,10 +65,8 @@ const Filtro =({navigation,route}) =>{
                 backgroundColor: "rgba(0,0,0,1)",
               }}
               onCancel={() => {
-                console.log("Cancelled")
               }}
               onValueChange={value => {
-                console.log("valueSucursal: ", value)
                 setValueSucursal(value)
               }}
             />
@@ -95,10 +93,8 @@ const Filtro =({navigation,route}) =>{
                 backgroundColor: "rgba(0,0,0,1)",
               }}
               onCancel={() => {
-                console.log("Cancelled")
               }}
               onValueChange={value => {
-                console.log("valueMascota: ", value)
                 setValueMascota(value)
 
               }}

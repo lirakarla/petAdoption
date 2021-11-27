@@ -46,7 +46,6 @@ const SolicitarAdop=({isVisible,toggleOverlay,idMascota,getCurrentCita}) =>{
                         setImages([...images,result.assets[0].uri])
                         setImagesName([...images,result.assets[0].fileName])
                       }
-                      console.log(result.assets[0].fileName)
                 }}/>
             </TouchableOpacity>}
         </View>

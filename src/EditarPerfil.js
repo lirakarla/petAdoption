@@ -16,6 +16,8 @@ const EditarPerfil =({navigation,route}) =>{
   const pickerRefOcupacion= useRef()
   const [date, setDate] = useState(new Date())
   const [open, setOpen] = useState(false)
+  const [nombre, setNombre] = useState("")
+  const [descripcion, setDescripcion] = useState("")
   const [valueVivienda, setValueVivienda] = useState()
   const [valueOcupacion, setValueOcupacion] = useState()
   const ocupacion= ["Estudiante","Trabajador","Desempleado","Retirado"]
@@ -32,8 +34,12 @@ const EditarPerfil =({navigation,route}) =>{
               <Text style={styles.cate}>Nombre</Text>
               <View style={{width:200 , marginLeft:120}}>
                 <Input inputStyle={styles.input} 
-                  placeholder='nombre y apellido'
-                />  
+                 onChangeText={(str)=>{
+                  setNombre(str)
+                  console.log(str)
+                }}
+                  placeholder='nombre y apellido'>
+                  </Input> 
               </View>
            </View>
            <View style={{flexDirection: 'row', justifyContent:"flex-start"}}>
@@ -44,6 +50,7 @@ const EditarPerfil =({navigation,route}) =>{
                     open={open}
                     date={date}
                     mode={"date"}
+                    maximumDate={new Date("2003-12-31")}
                     onConfirm={(date) => {
                       setOpen(false)
                       setDate(date)
@@ -116,8 +123,21 @@ const EditarPerfil =({navigation,route}) =>{
                   />
            </View>
             <Text style={styles.cate}>¿Porqué quiere una mascota?</Text>
-            <TextInput multiline={true} numberOfLines={5} style={{backgroundColor:"white",marginRight:15}}></TextInput>
-            <Button   buttonStyle={styles.button} titleStyle={styles.buttonTitle} 
+            <TextInput multiline={true} numberOfLines={5} style={{backgroundColor:"white",marginRight:15}} 
+            maxLength={100}
+            onChangeText={(str)=>{
+                  setDescripcion(str)
+                  console.log(str)
+                }}>
+
+             </TextInput>
+            <Button   buttonStyle={styles.button} titleStyle={styles.buttonTitle} onPress={()=>{
+                axios.put("http://10.0.2.2:3001/user/perfil",{
+                  correo: "irving@udem.edu", fechaNacimiento:date,descripcion,profesion:valueOcupacion,vivienda:valueVivienda,nombre
+                }).then((res)=>{
+                  navigation.navigate("PerfilUsuario")
+                })
+            }}
           title="Guardar"
         />
         </View>

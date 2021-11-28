@@ -1,6 +1,7 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons';
+import { StackActions } from '@react-navigation/native';
 
 import {
   
@@ -9,7 +10,7 @@ import {
 
 //para el color gradiente
 import LinearGradient from 'react-native-linear-gradient';
-const HeaderHome =({title}) =>{
+const HeaderHome =({title,navigation}) =>{
   
   return (
     <View style={styles.header}>   
@@ -34,7 +35,12 @@ const HeaderHome =({title}) =>{
         </View>
         
         <View style={{height:20,width:20}}>
-          <IconMaterial name="bell-ring-outline" size={20} color="#000" style={{alignSelf:"center"}}  ></IconMaterial>
+          <IconMaterial name="bell-ring-outline" size={20} color="#000" style={{alignSelf:"center"}}  
+          onPress={()=> {
+            const pushAction = StackActions.push('Notificacion'); 
+            navigation.dispatch(pushAction)
+          }}>
+          </IconMaterial>
         </View>
       </View>
     </View>

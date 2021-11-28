@@ -33,7 +33,7 @@ const Favoritos =({navigation}) =>{
   },[])//parte nueva de react
   return (
     <View style={styles.container}>
-      <HeaderNav title={"Favoritos"}></HeaderNav>
+      <HeaderNav title={"Favoritos"} navigation={navigation}></HeaderNav>
       
       <ScrollView keyboardShouldPersistTaps='always'keyboardShouldPersistTaps="always" style={{height:700}} >
         {animals.map(animal=>{

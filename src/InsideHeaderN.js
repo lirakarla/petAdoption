@@ -8,7 +8,7 @@ import {
 
 //para el color gradiente
 import LinearGradient from 'react-native-linear-gradient';
-const InsideHeader2 =({title,accion, navigation, filtrado,route}) =>{
+const InsideHeaderN=({title,accion, navigation, filtrado,route}) =>{
  
   return (
     <View style={styles.header}>   
@@ -19,10 +19,15 @@ const InsideHeader2 =({title,accion, navigation, filtrado,route}) =>{
     showHideTransition={'none'}
     hidden={false} />
 
-     <View style={{flexDirection:'row',alignItems:"center"}} >
+     <View style={{flexDirection:'row',justifyContent:'space-around', alignItems:"center"}} >
+            <Icon name="arrowleft" size={25} color="#000" onPress={()=>{
+            
+              navigation.pop()
+            }} />
             <Text style={styles.headerTitulo}>{title}</Text>
             <Text style={styles.link}  onPress={()=>{
-               navigation.navigate("PerfilUsuario")
+              
+              navigation.pop()
             }}>{accion} </Text>
       </View>
     </View>
@@ -35,8 +40,7 @@ var styles = {
     color:  '#C88037',
     textAlign:"center",
     fontWeight:"600",
-    textDecorationLine: 'underline',
-    marginLeft:50
+    textDecorationLine: 'underline'
   },
   header:{
       backgroundColor: "#FDFCFB",
@@ -58,11 +62,11 @@ var styles = {
     fontSize: 25,
     fontFamily: 'Gill Sans',
     textAlign: 'center',
-    marginLeft:130,
+    margin: 10,
     color: '#000000',
     fontWeight:"bold"
   },
  
 };
 
-export default InsideHeader2;
+export default InsideHeaderN;

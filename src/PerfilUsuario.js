@@ -16,14 +16,33 @@ import {
 import axios from 'axios';
 
 const PerfilUsuario = ({navigation}) => {
+  const [perfil, setPerfil] = useState(null)
+
+  const getPerfil=()=>{
+    const user={
+      correo:"irving@udem.edu"
+    }
+    axios.get("http://10.0.2.2:3001/user/perfil/"+user.correo).then((res)=>{
+      setPerfil(res.data)
+      //setLoading(false);
+    })
+  }
+
+  useEffect(()=>{
+    getPerfil()
+  
+},[])//parte nueva de react
+if(perfil==null){
+  return <View></View>
+}
   return (
     <View style={styles.container}>
-      <HeaderNav title="Perfil"></HeaderNav>
+      <HeaderNav title="Perfil" navigation={navigation}></HeaderNav>
         <Text style={styles.regis} onPress={()=>navigation.navigate("EditarPerfil")}>Editar</Text>
         <View style={{justifyContent: 'center', alignItems: 'center'}}>
           <IconM name="person-circle" size={100} color="#EAC56E" />
-          <Text style={styles.label}>Karla Lira</Text>
-          <Text style={styles.text}>21 años</Text>
+          <Text style={styles.label}>{perfil.nombre}</Text>
+          <Text style={styles.text}>{perfil.edad} años</Text>
         </View>
         <View style={{alignSelf:"flex-start",marginLeft:20,marginTop:20}}>
           <View style={{flexDirection: 'row', padding: 8, justifyContent:"flex-start"}}>
@@ -32,7 +51,7 @@ const PerfilUsuario = ({navigation}) => {
               size={20}
               color="#3E3E3E"
               style={{alignSelf: 'center', marginRight: 15}}></IconOcupacion>
-              <Text style={styles.textOptions}>Estudiante</Text>
+              <Text style={styles.textOptions}>{perfil.profesion}</Text>
           </View>
           <View style={{flexDirection: 'row', padding: 8}}>
             <IconM
@@ -41,12 +60,12 @@ const PerfilUsuario = ({navigation}) => {
               color="#3E3E3E"
               style={{alignSelf: 'center', marginRight: 15}}></IconM>
             <View style={{justifyContent: 'center'}}>
-              <Text style={styles.textOptions}>Casa propia</Text>
+              <Text style={styles.textOptions}>{perfil.vivienda}</Text>
             </View>
           </View>
           <Text style={{marginTop:30,fontWeight:"600",marginLeft:15, fontSize:16}}>¿Porqué quiero una mascota?</Text>
           <View style={{flex:0.5,marginTop:20, borderRadius:20, backgroundColor:"#E5E5E5",width:350,heigth:800}}>
-          <Text style={{margin:9}}>Para matar cachorros</Text>
+          <Text style={{margin:9}}>{perfil.descripcion}</Text>
           </View>
         </View>
 

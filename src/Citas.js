@@ -14,7 +14,7 @@ const Citas =({navigation}) =>{
 
   return (
     <View style={styles.container}>
-      <HeaderNav title={"Citas"}></HeaderNav>
+      <HeaderNav title={"Citas"} navigation={navigation}></HeaderNav>
       <View style={{flexDirection:"row"}}>
         <View>
         

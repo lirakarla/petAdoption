@@ -57,7 +57,7 @@ const Home =({navigation}) =>{
   },[])//parte nueva de react
   return (
     <View style={styles.container}>
-      <HeaderHome ></HeaderHome>
+      <HeaderHome navigation={navigation}></HeaderHome>
       <View style={{flexDirection:"row"}}>
         <View>
           <Text style={styles.ti}>Adopta un Amigo</Text>

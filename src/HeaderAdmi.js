@@ -10,7 +10,7 @@ import {
 
 //para el color gradiente
 import LinearGradient from 'react-native-linear-gradient';
-const HeaderHome =({title,navigation}) =>{
+const HeaderAdmi =({title,navigation}) =>{
   
   return (
     <View style={styles.header}>   
@@ -20,15 +20,10 @@ const HeaderHome =({title,navigation}) =>{
     barStyle={'dark-content'}
     showHideTransition={'none'}
     hidden={false} />
-
-
-     <View style={{flexDirection:'row',justifyContent:'space-between', alignItems:"center", paddingRight:10}} >
-        <View style={{height:50,width:250}}>
-          <View style={{flexDirection:"row", justifyContent:"center", alignItems:"center", alignSelf:"center"}}>
+      <View style={{flexDirection:"row", justifyContent:"center", alignItems:"center", alignSelf:"center"}}>
             <Text style={styles.headerTitulo}>{"Solicitudes"}</Text>
-         </View>
-        </View>
       </View>
+      
     </View>
   );
 } 
@@ -57,14 +52,16 @@ var styles = {
     elevation: 10,
   },
   headerTitulo: {
-    fontSize: 18,
+    fontSize: 25,
     fontFamily: 'Gill Sans',
     textAlign: 'center',
     margin: 10,
     color: '#000000',
-    fontWeight:"bold"
+    fontWeight:"bold",
+    alignSelf:"center",
+    textAlign:"center"
   },
  
 };
 
-export default HeaderHome;
+export default HeaderAdmi;

@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import HeaderNav from './HeaderNav';
+import HeaderAdmi from './HeaderAdmi';
 import {Input, Button} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Foundation';
 import IconM from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
 import {Text, StyleSheet, Image, View, StatusBar, KeyboardAvoidingView, ScrollView} from 'react-native';
 import axios from "axios";
-import Card from './Card';
-
-
+import CardSolicitud from './CardSolicitud';
 
 
 const SolicitudesAdmi=({navigation}) =>{
@@ -19,14 +17,10 @@ const SolicitudesAdmi=({navigation}) =>{
   },[])//parte nueva de react
   return (
     <View style={styles.container}>
-      <HeaderAdmi title={"Favoritos"} navigation={navigation}></HeaderAdmi>
+      <HeaderAdmi title={"Solicitudes"} navigation={navigation}></HeaderAdmi>
       
       <ScrollView keyboardShouldPersistTaps='always'keyboardShouldPersistTaps="always" style={{height:700}} >
-        {animals.map(animal=>{
-          return <Card onPressed={()=>navigation.navigate("PerfilMascota", {
-            animal:animal
-          })} key={animal.id} getAnimals={getAnimals} favorito={animal.favorito} idMascota={animal.id} name={animal.name} age={animal.age} gender={animal.gender} url={animal.url} ></Card>
-        })}
+        <CardSolicitud></CardSolicitud>
         </ScrollView>
     </View>
     

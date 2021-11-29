@@ -22,6 +22,8 @@ import Favoritos from './Favoritos';
 import PerfilUsuario from './PerfilUsuario';
 import EditarPerfil from './EditarPerfil';
 import Notificacion from './Notificacion';
+import SolicitudesAdmi from './SolicitudesAdmi';
+import Solicitud from './Solicitud';
 const Stack = createNativeStackNavigator();
 
 class App extends Component{
@@ -35,6 +37,8 @@ class App extends Component{
     return(
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown:false}}>
+        <Stack.Screen name="Solicitud" component={Solicitud} />
+        <Stack.Screen name="SolicitudAdmi" component={SolicitudesAdmi} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Notificacion" component={Notificacion} />
         <Stack.Screen name="EditarPerfil" component={EditarPerfil} />

@@ -20,27 +20,13 @@ const HeaderHome =({title,navigation}) =>{
     barStyle={'dark-content'}
     showHideTransition={'none'}
     hidden={false} />
-    <Text style={styles.ubicacion}>{"Ubicación"}</Text>
+
 
      <View style={{flexDirection:'row',justifyContent:'space-between', alignItems:"center", paddingRight:10}} >
-
-        <View style={{height:20,width:20}}>
-        </View>
-
         <View style={{height:50,width:250}}>
           <View style={{flexDirection:"row", justifyContent:"center", alignItems:"center", alignSelf:"center"}}>
-            <Icon name="location-pin" size={20} color="#000" />
-            <Text style={styles.headerTitulo}>{"Monterrey, N.L"}</Text>
+            <Text style={styles.headerTitulo}>{"Solicitudes"}</Text>
          </View>
-        </View>
-        
-        <View style={{height:20,width:20}}>
-          <IconMaterial name="bell-ring-outline" size={20} color="#000" style={{alignSelf:"center"}}  
-          onPress={()=> {
-            const pushAction = StackActions.push('Notificacion'); 
-            navigation.dispatch(pushAction)
-          }}>
-          </IconMaterial>
         </View>
       </View>
     </View>

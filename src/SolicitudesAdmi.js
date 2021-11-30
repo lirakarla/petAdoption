@@ -10,17 +10,31 @@ import CardSolicitud from './CardSolicitud';
 
 
 const SolicitudesAdmi=({navigation}) =>{
-  
-  useEffect(()=>{
-     
+  const [solicitudes, setSolicitudes] = useState([]);
+
+  const getSolicitudes=()=>{
+    axios.get("http://10.0.2.2:3001/cita/admin/").then((res)=>{
+      setSolicitudes(res.data)
+      console.log(res.data)
+      //setLoading(false);
+    })
     
+  }
+  useEffect(()=>{
+   getSolicitudes()
   },[])//parte nueva de react
   return (
     <View style={styles.container}>
       <HeaderAdmi title={"Solicitudes"} navigation={navigation}></HeaderAdmi>
       
       <ScrollView keyboardShouldPersistTaps='always'keyboardShouldPersistTaps="always" style={{height:700}} >
-        <CardSolicitud></CardSolicitud>
+       {
+         solicitudes.map(solicitud=>{
+           return (
+            <CardSolicitud solicitud={solicitud} getSolicitudes={getSolicitudes} navigation={navigation}></CardSolicitud>
+           )
+         })
+       } 
         </ScrollView>
     </View>
     

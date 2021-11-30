@@ -15,33 +15,34 @@ import {
 } from 'react-native';
 import axios from 'axios';
 
-const Solicitud = ({navigation}) => {
-  const [perfil, setPerfil] = useState(null)
+const Solicitud = ({navigation,solicitud,route,getSolicitudes}) => {
+  const [cita, setCita] = useState(null)
 
-  const getPerfil=()=>{
+  const getCita=()=>{
     const user={
       correo:"irving@udem.edu"
     }
-    axios.get("http://10.0.2.2:3001/user/perfil/"+user.correo).then((res)=>{
-      setPerfil(res.data)
+    axios.get("http://10.0.2.2:3001/cita/adminDetalle/"+route.params.solicitud.idCita).then((res)=>{
+      setCita(res.data)
       //setLoading(false);
+      console.log(res.data)
     })
   }
 
   useEffect(()=>{
-    getPerfil()
+    getCita()
   
 },[])//parte nueva de react
-if(perfil==null){
+if(cita==null){
   return <View></View>
 }
   return (
     <View style={styles.container}>
-      <HeaderAdmi2 title={"Solicitud"} navigation={navigation}></HeaderAdmi2>
+      <HeaderAdmi2 title={"Solicitud"} getSolicitudes={route.params.getSolicitudes} idCita={cita.idCita} navigation={navigation}></HeaderAdmi2>
         <View style={{justifyContent: 'center', alignItems: 'center'}}>
           <IconM name="person-circle" size={100} color="#EAC56E" />
-          <Text style={styles.label}>{perfil.nombre}</Text>
-          <Text style={styles.text}>{perfil.edad} años</Text>
+          <Text style={styles.label}>{cita.nombre}</Text>
+          <Text style={styles.text}>{cita.edadPosibleDueno} años</Text>
         </View>
         <View style={{alignSelf:"flex-start",marginLeft:20,marginTop:20}}>
           <View style={{flexDirection: 'row', padding: 8, justifyContent:"flex-start"}}>
@@ -50,7 +51,7 @@ if(perfil==null){
               size={20}
               color="#3E3E3E"
               style={{alignSelf: 'center', marginRight: 15}}></IconOcupacion>
-              <Text style={styles.textOptions}>{perfil.profesion}</Text>
+              <Text style={styles.textOptions}>{cita.profesion}</Text>
           </View>
           <View style={{flexDirection: 'row', padding: 8}}>
             <IconM
@@ -59,18 +60,20 @@ if(perfil==null){
               color="#3E3E3E"
               style={{alignSelf: 'center', marginRight: 15}}></IconM>
             <View style={{justifyContent: 'center'}}>
-              <Text style={styles.textOptions}>{perfil.vivienda}</Text>
+              <Text style={styles.textOptions}>{cita.vivienda}</Text>
             </View>
           </View>
           <Text style={{marginTop:30,fontWeight:"600",marginLeft:15, fontSize:16}}>¿Porqué quiero una mascota?</Text>
           <View style={{flex:0.5,marginTop:20, borderRadius:20, backgroundColor:"#E5E5E5",width:350,heigth:800}}>
-          <Text style={{margin:9}}>{perfil.descripcion}</Text>
+          <Text style={{margin:9}}>{cita.descripcion}</Text>
           </View>
             <View style={{flexDirection:"row",justifyContent:"space-around"}}>
-                 <Image style={{marginTop:20,width:100,height:100}} source={{uri:"https://www.berdinodiaz.com/wp-content/uploads/2019/05/errores-en-patios-delanteros.jpg"}}></Image>
-                 <Image style={{marginTop:20,width:100,height:100}} source={{uri:"https://www.berdinodiaz.com/wp-content/uploads/2019/05/errores-en-patios-delanteros.jpg"}}></Image>
-                 <Image style={{marginTop:20,width:100,height:100}} source={{uri:"https://www.berdinodiaz.com/wp-content/uploads/2019/05/errores-en-patios-delanteros.jpg"}}></Image>
-            </View>
+                {
+                  cita.fotos.map(foto=>{
+                    return <Image style={{marginTop:20,width:100,height:100}} source={{uri:"http://10.0.2.2:3001/file/"+foto}}></Image>
+                  })
+                } 
+           </View>
         </View>
     </View>
   );

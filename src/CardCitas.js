@@ -7,24 +7,25 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/SimpleLineIcons';
 import {Text, StyleSheet, Image, View, StatusBar, TouchableOpacity, KeyboardAvoidingView,TouchableWithoutFeedback
 } from 'react-native';
+import axios from "axios";
 
-
-const Card =({name,age,gender,url,onPress}) =>{
+const Card =({name,age,gender,url,onPress,cita,getCitas}) =>{
   return (
-    <TouchableOpacity style={styles.container}  onPress={()=>onPress()} >
+    <View style={styles.container} >
       <View style={{flexDirection:'row',flex:1}}>
-        <Image style={{width:145, height:120, margin:10, borderRadius:20, resizeMode:"cover"}} source={{uri:"https://i0.wp.com/regeneracion.mx/wp-content/uploads/2021/07/perro-pitbull-shutterstock_0_43_958_595.jpg?fit=958%2C596&ssl=1"}} ></Image>
+        <TouchableOpacity onPress={()=>onPress()} >
+          <Image style={{width:145, height:120, margin:10, borderRadius:20, resizeMode:"cover"}} source={{uri:cita.urlFotoMascota}}></Image>
+        </TouchableOpacity>
         <View style={{flex:1, justifyContent:"center"}}>
-          <Text style={styles.animal}>{name}</Text>
+          <Text style={styles.animal}>{cita.nombreMascota}</Text>
         </View>
       </View>
-     
       <View style={{flex:1.2, marginTop:20, marginRight: 15, marginLeft: 15,borderRadius:20, backgroundColor:"#F8F6F2",justifyContent:"center"}}>
         <View style={{flexDirection:'row', padding:10}}>
           <Icon name="location-outline" size={28} color="#000" style={{alignSelf:"center",marginRight:15}}></Icon>
           <View>
-          <Text>Petco Gonzalitos</Text>
-          <Text>Sin Nombre de Col 69, Monterrey, N.L.</Text>
+          <Text>{cita.nombreSucu}</Text>
+          <Text>{cita.direccion}</Text>
         </View>
       </View>
       <View style={{flexDirection:'row', padding:10}}>
@@ -42,10 +43,22 @@ const Card =({name,age,gender,url,onPress}) =>{
         </View>
       </View>
       <View style={{marginBottom:30,marginTop:20,justifyContent:"center",alignItems:"center", flexDirection:"row"}}>
-       <Text style={styles.regis} >Cancelar</Text>
-        <Button buttonStyle={{backgroundColor: "#FFD46F", width:160,height:35, borderRadius:30, textAlign:"center", marginLeft:70}} titleStyle={{color:"#000000"}} title="Confirmar"></Button>
+       <Text style={styles.regis} onPress={()=>{
+          axios.delete("http://10.0.2.2:3001/cita/estado/"+cita.idCita).then(async(res)=>{
+           getCitas()
+          })
+       }}>Cancelar</Text>
+        <Button buttonStyle={{backgroundColor: "#FFD46F", width:160,height:35, borderRadius:30, textAlign:"center", marginLeft:70}} titleStyle={{color:"#000000"}}  onPress={() => {
+            axios
+              .post('http://10.0.2.2:3001/cita/estado/' + cita.idCita + '/confirmada')
+              .then(res => {
+                getCitas();
+              });
+          }}
+          disabled={cita.estado==="confirmada"}
+           title="Confirmar"></Button>
       </View>
-    </TouchableOpacity >
+    </View>
     
   );
 } 
@@ -72,6 +85,7 @@ var styles = {
       backgroundColor:"#FFFFFF",
       borderColor:"#B7B7B7",
       borderRadius:20,
+      marginBottom:35,
       width:380,
       height:380,
       shadowColor: "#000000",

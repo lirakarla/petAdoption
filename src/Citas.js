@@ -11,7 +11,16 @@ import CardCitas from'./CardCitas';
 
 
 const Citas =({navigation}) =>{
-
+const [citas,setCitas]=useState([])
+const getCitas=()=>{
+  axios.get("http://10.0.2.2:3001/cita/usuario/irving@udem.edu").then(async(res)=>{
+    setCitas(res.data)
+    console.log(res.data)
+  }).catch(error=>console.log(error))
+}
+useEffect (()=>{
+ getCitas()
+},[])
   return (
     <View style={styles.container}>
       <HeaderNav title={"Citas"} navigation={navigation}></HeaderNav>
@@ -21,7 +30,21 @@ const Citas =({navigation}) =>{
         </View>
       </View>
       <ScrollView keyboardShouldPersistTaps='always'keyboardShouldPersistTaps="always" style={{height:700}} >
-       <CardCitas name={"Conejo mix"} onPress={()=>navigation.navigate("PerfilMascota")}/>
+       {citas.map(cita=>{
+         return  <CardCitas cita={cita} getCitas={getCitas} onPress={()=>navigation.navigate("PerfilMascota",{ animal:{
+           name:cita.nombreMascota,
+           nombre:cita.nombreSucu,
+           gender:cita.genero,
+           tamanio:cita.tamanio,
+           age:cita.edad,
+           url:cita.urlFotoMascota,
+           peso:cita.peso,
+           descripcion:cita.descripcion,
+           id:cita.idMascota
+         }
+         })}/>
+       })}
+      
       </ScrollView>
       
         <View style={{flexDirection:"row", marginTop:8}}>
@@ -39,7 +62,7 @@ const Citas =({navigation}) =>{
     </View>
     
   );
-} 
+}
 // estilo =css, es un objeto js
 var styles = {
   container:{

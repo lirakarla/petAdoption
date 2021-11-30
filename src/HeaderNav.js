@@ -2,6 +2,8 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons';
 import { StackActions } from '@react-navigation/native';
+import { AsyncStorage } from 'react-native';
+
 
 import {
   

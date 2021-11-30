@@ -7,13 +7,15 @@ import Icon2 from 'react-native-vector-icons/FontAwesome';
 import {Text, StyleSheet, Image, View, StatusBar, KeyboardAvoidingView, ScrollView} from 'react-native';
 import axios from "axios";
 import CardCitas from'./CardCitas';
+import { AsyncStorage } from 'react-native';
 
 
 
 const Citas =({navigation}) =>{
 const [citas,setCitas]=useState([])
-const getCitas=()=>{
-  axios.get("http://10.0.2.2:3001/cita/usuario/irving@udem.edu").then(async(res)=>{
+const getCitas=async()=>{
+  const user= JSON.parse(await AsyncStorage.getItem("user"))
+  axios.get("http://10.0.2.2:3001/cita/usuario/"+user.correo).then(async(res)=>{
     setCitas(res.data)
     console.log(res.data)
   }).catch(error=>console.log(error))

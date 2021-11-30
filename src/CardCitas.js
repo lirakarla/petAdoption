@@ -8,6 +8,8 @@ import Icon2 from 'react-native-vector-icons/SimpleLineIcons';
 import {Text, StyleSheet, Image, View, StatusBar, TouchableOpacity, KeyboardAvoidingView,TouchableWithoutFeedback
 } from 'react-native';
 import axios from "axios";
+import { AsyncStorage } from 'react-native';
+
 
 const Card =({name,age,gender,url,onPress,cita,getCitas}) =>{
   return (

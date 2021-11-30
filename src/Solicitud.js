@@ -4,6 +4,7 @@ import {Input, Button} from 'react-native-elements';
 import IconOcupacion from 'react-native-vector-icons/MaterialIcons';
 import IconM from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
+import { AsyncStorage } from 'react-native';
 import {
   Text,
   StyleSheet,
@@ -18,10 +19,8 @@ import axios from 'axios';
 const Solicitud = ({navigation,solicitud,route,getSolicitudes}) => {
   const [cita, setCita] = useState(null)
 
-  const getCita=()=>{
-    const user={
-      correo:"irving@udem.edu"
-    }
+  const getCita=async()=>{
+    const user= JSON.parse(await AsyncStorage.getItem("user"))
     axios.get("http://10.0.2.2:3001/cita/adminDetalle/"+route.params.solicitud.idCita).then((res)=>{
       setCita(res.data)
       //setLoading(false);

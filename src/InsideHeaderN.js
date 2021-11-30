@@ -1,6 +1,6 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
-
+import { AsyncStorage } from 'react-native';
 import {
   
   Text, StyleSheet, Image, View, StatusBar

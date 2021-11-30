@@ -7,6 +7,7 @@ import Icon2 from 'react-native-vector-icons/FontAwesome';
 import {Text, StyleSheet, Image, View, StatusBar, KeyboardAvoidingView, ScrollView} from 'react-native';
 import axios from "axios";
 import CardSolicitud from './CardSolicitud';
+import { AsyncStorage } from 'react-native';
 
 
 const SolicitudesAdmi=({navigation}) =>{
@@ -26,7 +27,10 @@ const SolicitudesAdmi=({navigation}) =>{
   return (
     <View style={styles.container}>
       <HeaderAdmi title={"Solicitudes"} navigation={navigation}></HeaderAdmi>
-      
+      <Text style={styles.regis} onPress={async()=>{
+          await AsyncStorage.removeItem("user")
+          navigation.navigate("Login")
+          }}>Cerrar Sesión</Text>
       <ScrollView keyboardShouldPersistTaps='always'keyboardShouldPersistTaps="always" style={{height:700}} >
        {
          solicitudes.map(solicitud=>{
@@ -70,6 +74,15 @@ var styles = {
     fontSize:18,
     marginTop:40,
   },
+  regis: {
+    color: '#C88037',
+    textDecorationLine: 'underline',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign:"left",
+    width:"90%"
+
+  }
 };
 
 export default SolicitudesAdmi;

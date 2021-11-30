@@ -7,6 +7,8 @@ import {
   
   Text, StyleSheet, Image, View, StatusBar
 } from 'react-native';
+import { AsyncStorage } from 'react-native';
+
 
 //para el color gradiente
 import LinearGradient from 'react-native-linear-gradient';

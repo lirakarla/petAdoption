@@ -7,17 +7,15 @@ import Icon2 from 'react-native-vector-icons/FontAwesome';
 import {Text, StyleSheet, Image, View, StatusBar, KeyboardAvoidingView, ScrollView} from 'react-native';
 import axios from "axios";
 import Card from './Card';
-
+import { AsyncStorage } from 'react-native';
 
 
 
 const Favoritos =({navigation}) =>{
   const [animals, setAnimals]=useState([])
  
-  const getAnimals=()=>{
-    const user={
-      correo:"irving@udem.edu"
-    }
+  const getAnimals=async()=>{
+    const user= JSON.parse(await AsyncStorage.getItem("user"))
     axios.get("http://10.0.2.2:3001/pet/favoritos",{
       params:{
        correoPosibleDueno:user.correo

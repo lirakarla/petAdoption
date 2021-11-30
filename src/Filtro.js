@@ -8,6 +8,8 @@ import ReactNativePickerModule from "react-native-picker-module"
 import {Text, StyleSheet, Image, View, StatusBar, KeyboardAvoidingView, SafeAreaView} from 'react-native';
 import NumericInput from 'react-native-numeric-input'
 import axios from 'axios';
+import { AsyncStorage } from 'react-native';
+
 
 const Filtro =({navigation,route}) =>{
   //const renderThumb = useCallback(() => <Thumb/>, []);

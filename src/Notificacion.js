@@ -1,4 +1,4 @@
-import React, { useState,useRef,useCallback} from 'react';
+import React, { useState,useRef,useCallback,useEffect} from 'react';
 import InsideHeaderN from './InsideHeaderN';
 //mport {Input, Button} from 'react-native-elements';
 //import Icon from 'react-native-vector-icons/FontAwesome';
@@ -8,14 +8,37 @@ import ReactNativePickerModule from "react-native-picker-module"
 import {Text, StyleSheet, Image, View, StatusBar, KeyboardAvoidingView, SafeAreaView} from 'react-native';
 import NumericInput from 'react-native-numeric-input'
 import axios from 'axios';
+import { AsyncStorage } from 'react-native';
+
 
 const Notificacion =({navigation,route}) =>{
- 
-  
+const [noti,setNoti]=useState([])
+const getNoti=async()=>{
+  const user= JSON.parse(await AsyncStorage.getItem("user"))
+  axios.get("http://10.0.2.2:3001/cita/notificaciones/"+user.correo).then(async(res)=>{
+    setNoti(res.data)
+  }).catch(error=>console.log(error))
+}
+useEffect (()=>{
+ getNoti()
+},[])
   return (
     <View style={styles.container}>
       <InsideHeaderN route={route} navigation={navigation} title={"Notificaciones"} ></InsideHeaderN>
-       
+       <View style={{backgroundColor:"white", width:"80%",height:90,justifyContent:"center",padding:10}}>
+         <Text style={{textAlign:"center", fontSize:16,fontWeight:"500"}}>Recuerda confirmar tu cita para recoger a tu nuevo integrante</Text>
+       </View>
+       {
+         noti.map(notificacion=>{
+           return (
+            <View style={{backgroundColor:"white", width:"80%",height:110,justifyContent:"center",padding:10,marginTop:20, flexDirection:"row", alignItems:"center"}}>
+              <Image style={{flex:0.6,width:65,height:65, borderRadius:20}}source={{uri:notificacion.urlFotoMascota}}></Image>
+              <Text style={{flex:2,textAlign:"center", fontSize:16,fontWeight:"500",color:"#2F2F2F"}}>Tu solicitud fue aprobada para adoptar a: <Text style={{color:"#2F2F2F",fontWeight:"bold"}} onPress={()=>navigation.navigate("Citas")}>{notificacion.nombreMascota}</Text> </Text>
+            </View>
+           )
+         })
+       }
+      
     </View>    
   )
 } 

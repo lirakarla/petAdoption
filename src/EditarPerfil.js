@@ -1,4 +1,4 @@
-import React, { useState,useRef,useCallback} from 'react';
+import React, { useState,useRef,useCallback,useEffect} from 'react';
 import InsideHeader2 from './InsideHeader2';
 //import Icon from 'react-native-vector-icons/FontAwesome';
 import {withoutEmoji} from "emoji-aware";
@@ -9,6 +9,8 @@ import NumericInput from 'react-native-numeric-input'
 import axios from 'axios';
 import IconM from 'react-native-vector-icons/Ionicons';
 import DatePicker from 'react-native-date-picker'
+import { AsyncStorage } from 'react-native';
+
 
 
 const EditarPerfil =({navigation,route}) =>{
@@ -22,6 +24,16 @@ const EditarPerfil =({navigation,route}) =>{
   const [valueOcupacion, setValueOcupacion] = useState()
   const ocupacion= ["Estudiante","Trabajador","Desempleado","Retirado"]
   const vivienda= ["Casa","Apartamento"]
+  useEffect(()=>{
+    if(route.params.perfil){
+      const {perfil}=route.params
+      setNombre(perfil.nombre)
+      setDescripcion(perfil.descripcion)
+      setValueVivienda(perfil.vivienda)
+      setValueOcupacion(perfil.profesion)
+      setDate(new Date(perfil.fechaNacimiento))
+    }
+  },[])
   return (
     <View style={styles.container}>
       <InsideHeader2 route={route} navigation={navigation} title={"Editar Perfil"} accion={"cancelar"}></InsideHeader2>
@@ -38,7 +50,8 @@ const EditarPerfil =({navigation,route}) =>{
                   setNombre(str)
                   console.log(str)
                 }}
-                  placeholder='nombre y apellido'>
+                  placeholder='nombre y apellido'
+                  value={nombre}>
                   </Input> 
               </View>
            </View>
@@ -128,13 +141,16 @@ const EditarPerfil =({navigation,route}) =>{
             onChangeText={(str)=>{
                   setDescripcion(str)
                   console.log(str)
-                }}>
+                }}
+                value={descripcion}>
 
              </TextInput>
-            <Button   buttonStyle={styles.button} titleStyle={styles.buttonTitle} onPress={()=>{
+            <Button   buttonStyle={styles.button} titleStyle={styles.buttonTitle} onPress={async()=>{
+              const user= JSON.parse(await AsyncStorage.getItem("user"))
                 axios.put("http://10.0.2.2:3001/user/perfil",{
-                  correo: "irving@udem.edu", fechaNacimiento:date,descripcion,profesion:valueOcupacion,vivienda:valueVivienda,nombre
+                  correo: user.correo, fechaNacimiento:date,descripcion,profesion:valueOcupacion,vivienda:valueVivienda,nombre
                 }).then((res)=>{
+                  route.params.getPerfil()
                   navigation.navigate("PerfilUsuario")
                 })
             }}

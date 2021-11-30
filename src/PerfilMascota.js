@@ -6,11 +6,7 @@ import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons';
 import SolicitarAdop from './SolicitarAdop'
 import axios from 'axios';
 import { AsyncStorage } from 'react-native';
-
-import {
-  
-  Text, StyleSheet, Image, View, StatusBar
-} from 'react-native';
+import {Text, StyleSheet, Image, View, StatusBar} from 'react-native';
 
 //para el color gradiente
 import LinearGradient from 'react-native-linear-gradient';
@@ -24,8 +20,9 @@ const toggleOverlay = () => {
 };
 const[currentCita,setCurrentCita]=useState(false)
 
-  const getCurrentCita=()=>{
-    axios.get("http://10.0.2.2:3001/cita/checkCita/"+id+"/"+"irving@udem.edu").then(res=>{
+  const getCurrentCita=async()=>{
+    const user= JSON.parse(await AsyncStorage.getItem("user"))
+    axios.get("http://10.0.2.2:3001/cita/checkCita/"+id+"/"+user.correo).then(res=>{
       setCurrentCita(res.data.cita)
     })
   }
@@ -34,10 +31,11 @@ const[currentCita,setCurrentCita]=useState(false)
    getFavorito()
   }, []);
   
-  const getFavorito=()=>{
+  const getFavorito=async()=>{
+    const user= JSON.parse(await AsyncStorage.getItem("user"))
     axios.get("http://10.0.2.2:3001/pet/favoritos",{
       params:{
-       correoPosibleDueno:"irving@udem.edu"
+       correoPosibleDueno:user.correo
        }}).then((res)=>{
          const filtrado=res.data.filter(mascota =>mascota.id==id)
          setFavorito(filtrado.length>0)
@@ -50,19 +48,18 @@ const[currentCita,setCurrentCita]=useState(false)
         <View style={{flexDirection:"row", paddingTop:10}}>
             <Text style={styles.titulo}>{name}</Text>
             <Icon name={favorito?"heart":"heart-o"} size={25} color="#EAC56E" style={{position:"absolute", top:10, right:10}} onPress={async ()=>{
-            // const user= JSON.parse(await AsyncStorage.getItem("user"))
-              const user={
-                correo:"irving@udem.edu"
-              }
+            const user= JSON.parse(await AsyncStorage.getItem("user"))
+              
               if(favorito){
-                axios.delete("http://10.0.2.2:3001/pet/favorito/"+id+"/"+"irving@udem.edu").then(async(res)=>{
+                axios.delete("http://10.0.2.2:3001/pet/favorito/"+id+"/"+user.correo).then(async(res)=>{
                   getFavorito()
                   getAnimals()
                 }).catch(error=>console.log(error))
               }
               else{
+                const user= JSON.parse(await AsyncStorage.getItem("user"))
                 axios.post("http://10.0.2.2:3001/pet/favorito",{
-                  correoPosibleDueno: "irving@udem.edu", idMascota:id
+                  correoPosibleDueno: user.correo, idMascota:id
                 }).then(async(res)=>{
                   getFavorito()
                   getAnimals()

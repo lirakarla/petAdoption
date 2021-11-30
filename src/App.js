@@ -24,6 +24,10 @@ import EditarPerfil from './EditarPerfil';
 import Notificacion from './Notificacion';
 import SolicitudesAdmi from './SolicitudesAdmi';
 import Solicitud from './Solicitud';
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['Warning: ...']); // Ignore log notification by message
+LogBox.ignoreAllLogs();//Ignore all log notifications
+
 const Stack = createNativeStackNavigator();
 
 class App extends Component{
@@ -37,8 +41,10 @@ class App extends Component{
     return(
       <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown:false}}>
+        <Stack.Screen name="Signup" component={Signup} />
+        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Citas" component={Citas} />
-        <Stack.Screen name="SolicitudAdmi" component={SolicitudesAdmi} />
+        <Stack.Screen name="SolicitudesAdmi" component={SolicitudesAdmi} />
         
         <Stack.Screen name="Solicitud" component={Solicitud} />
         
@@ -49,9 +55,8 @@ class App extends Component{
         <Stack.Screen name="PerfilUsuario" component={PerfilUsuario} />
         <Stack.Screen name="Favoritos" component={Favoritos} />
        
-        <Stack.Screen name="Signup" component={Signup} />
+        
         <Stack.Screen name="Filtro" component={Filtro} />
-          <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Location" component={Location} />
           <Stack.Screen name="PerfilMascota" component={PerfilMascota} />
           <Stack.Screen name="InsideHeader" component={InsideHeader} />

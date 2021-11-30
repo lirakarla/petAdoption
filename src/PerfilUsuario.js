@@ -4,6 +4,7 @@ import {Input, Button} from 'react-native-elements';
 import IconOcupacion from 'react-native-vector-icons/MaterialIcons';
 import IconM from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
+import { AsyncStorage } from 'react-native';
 import {
   Text,
   StyleSheet,
@@ -18,10 +19,8 @@ import axios from 'axios';
 const PerfilUsuario = ({navigation}) => {
   const [perfil, setPerfil] = useState(null)
 
-  const getPerfil=()=>{
-    const user={
-      correo:"irving@udem.edu"
-    }
+  const getPerfil=async()=>{
+    const user= JSON.parse(await AsyncStorage.getItem("user"))
     axios.get("http://10.0.2.2:3001/user/perfil/"+user.correo).then((res)=>{
       setPerfil(res.data)
       //setLoading(false);
@@ -35,10 +34,22 @@ const PerfilUsuario = ({navigation}) => {
 if(perfil==null){
   return <View></View>
 }
+else if(!perfil.nombre){
+  navigation.navigate("EditarPerfil")
+}
   return (
     <View style={styles.container}>
       <HeaderNav title="Perfil" navigation={navigation}></HeaderNav>
-        <Text style={styles.regis} onPress={()=>navigation.navigate("EditarPerfil")}>Editar</Text>
+      <View style={{flexDirection:"row", justifyContent:"flex-start"}}>
+        <Text style={styles.regis} onPress={async()=>{
+          await AsyncStorage.removeItem("user")
+          navigation.navigate("Login")
+          }}>Cerrar Sesión</Text>
+        <Text style={styles.regis2} onPress={()=>navigation.navigate("EditarPerfil",{
+          getPerfil,
+          perfil
+          })}>Editar</Text>
+      </View>
         <View style={{justifyContent: 'center', alignItems: 'center'}}>
           <IconM name="person-circle" size={100} color="#EAC56E" />
           <Text style={styles.label}>{perfil.nombre}</Text>
@@ -141,7 +152,14 @@ var styles = {
     textDecorationLine: 'underline',
     fontSize: 16,
     fontWeight: 'bold',
-    marginLeft: '85%',
+
+  },
+  regis2: {
+    color: '#C88037',
+    textDecorationLine: 'underline',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginLeft:"50%"
   },
 };
 export default PerfilUsuario;

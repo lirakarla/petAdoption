@@ -3,6 +3,8 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import {Text, StyleSheet, Image, View, StatusBar} from 'react-native';
 import {Input, Button} from 'react-native-elements';
 import axios from 'axios';
+import { AsyncStorage } from 'react-native';
+
 
 const HeaderAdmi2 = ({
   title,

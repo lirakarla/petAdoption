@@ -18,10 +18,8 @@ const Card =({name,age,gender,url,onPress,idMascota,favorito,getAnimals,onPresse
         <Image style={{width:145, height:180, borderRadius:20, resizeMode:"cover"}} source={{uri:url}}  ></Image>
       </TouchableOpacity>
       <Icon name={favorito==1?"heart":"heart-o"} size={25} color="#EAC56E" style={{position:"absolute", top:10, right:10}} onPress={async ()=>{
-         // const user= JSON.parse(await AsyncStorage.getItem("user"))
-          const user={
-            correo:"irving@udem.edu"
-          }
+         const user= JSON.parse(await AsyncStorage.getItem("user"))
+         
         
           setLoading(true)
           console.log(favorito)

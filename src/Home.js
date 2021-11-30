@@ -11,16 +11,15 @@ import {Text, StyleSheet, Image, View, StatusBar, KeyboardAvoidingView, ScrollVi
 import axios from "axios";
 import consoleFormat from 'emoji-aware/lib/console-format';
 import PerfilMascota from './PerfilMascota';
+import { AsyncStorage } from 'react-native';
 
 
 
 const Home =({navigation}) =>{
   const [animals, setAnimals]=useState([])
-  const aplicarFiltros=(filtros)=>{
+  const aplicarFiltros=async(filtros)=>{
     //{valueSucursal,valueEdadInf,valueEdadSup,valueMascota,genero,tamanio}
-    const user={
-      correo:"irving@udem.edu"
-    }
+    const user= JSON.parse(await AsyncStorage.getItem("user"))
      axios.get("http://10.0.2.2:3001/pet/filtered",{
        params:{
         sucursal:filtros.valueSucursal ? filtros.valueSucursal:undefined,
@@ -37,12 +36,11 @@ const Home =({navigation}) =>{
     }).then((res)=>{
       setAnimals(res.data)
       //setLoading(false);
+      console.log("filtro2",res.data)
     })
   }
-  const getAnimals=()=>{
-    const user={
-      correo:"irving@udem.edu"
-    }
+  const getAnimals=async()=>{
+    const user= JSON.parse(await AsyncStorage.getItem("user"))
     axios.get("http://10.0.2.2:3001/pet/initial",{
       params:{
        correoPosibleDueno:user.correo

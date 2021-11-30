@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Header from './Header';
 import axios from "axios";
 import {useHistory} from "react-router-dom";
@@ -6,6 +6,7 @@ import {Input, Button} from 'react-native-elements';
 //import Icon from 'react-native-vector-icons/FontAwesome';
 import {withoutEmoji} from "emoji-aware";
 import {Text, StyleSheet, Image, View, StatusBar, KeyboardAvoidingView,AsyncStorage} from 'react-native';
+
 
 //para el color gradiente
 import LinearGradient from 'react-native-linear-gradient';
@@ -39,7 +40,7 @@ const Signup =({navigation}) =>{
           setLoading(false);
           navigation.navigate("Location")
           //libreria para guardar info del usuario
-          await AsyncStorage.setItem("user", JSON.stringify(res.data.register))
+          await AsyncStorage.setItem("user", JSON.stringify(res.data))
         
         })
         .catch(error=>{
@@ -57,6 +58,15 @@ const Signup =({navigation}) =>{
        })
       }
   }
+  useEffect(async()=>{
+    const user= JSON.parse(await AsyncStorage.getItem("user"))
+    if(user.correo==="admin@huella.com"){
+      navigation.navigate("SolicitudesAdmi")
+    }
+    else if(user){
+      navigation.navigate("Location")
+    }
+},[])//parte nueva de react
 
   const validateEmail=(email) =>{
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import {Input, Button,Overlay} from 'react-native-elements';
 import {withoutEmoji} from "emoji-aware";
 import Icon2 from 'react-native-vector-icons/FontAwesome';
@@ -13,13 +13,17 @@ const SolicitarAdop=({isVisible,toggleOverlay,idMascota,getCurrentCita}) =>{
   const [loading,setLoading]=useState (false)
   const[images,setImages]=useState([])
   const[imagesName,setImagesName]=useState([])
-  
+  const[userName,setUserName]=useState("")
+  useEffect(async()=>{
+    const user= JSON.parse(await AsyncStorage.getItem("user"))
+    setUserName(user.correo)
+},[])//parte nueva de react
 
   return (
     <Overlay isVisible={isVisible} onBackdropPress={toggleOverlay} overlayStyle={{width:"95%",height:"60%",padding:30,borderRadius:30}}>
         <View style={{flexDirection:"row",  alignItems:"center", marginRight:20}}>
             <Icon2 style={{marginRight:20}} name="user-circle" size={44} color="#FFD46F"/>
-            <Text style={{fontSize:22, fontWeight:"bold", color:"#242424"}}>Irving Cruz</Text>
+            <Text style={{fontSize:22, fontWeight:"bold", color:"#242424"}}>{userName}</Text>
             <Icon style={{marginLeft:120}} name="close" size={20} color="#242424" onPress={toggleOverlay}/>
         </View>
         <Text style={{fontSize:14, marginTop:10, color:"rgba(36,36,36,0.58)"}}>Estoy de acuerdo con que se analizará mi perfil para la aprobación de la adopción solicitada.</Text>
@@ -52,9 +56,10 @@ const SolicitarAdop=({isVisible,toggleOverlay,idMascota,getCurrentCita}) =>{
 
         <Button  buttonStyle={styles.button} titleStyle={styles.buttonTitle} 
           title="Enviar Solicitud"
-          onPress={()=>{
+          onPress={async()=>{
             const data = new FormData();
-            data.append("correoPosibleDueno", "irving@udem.edu")
+            const user= JSON.parse(await AsyncStorage.getItem("user"))
+            data.append("correoPosibleDueno", user.correo)
             for (let index = 0; index < images.length; index++) {
               const element = images[index];
               data.append("photos",{

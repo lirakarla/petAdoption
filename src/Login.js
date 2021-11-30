@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Header from './Header';
 import {Input, Button} from 'react-native-elements';
 //import Icon from 'react-native-vector-icons/FontAwesome';
@@ -6,6 +6,8 @@ import {Text, StyleSheet, Image, View, StatusBar, KeyboardAvoidingView,AsyncStor
 import axios from "axios";
 //para el color gradiente
 import LinearGradient from 'react-native-linear-gradient';
+
+
 
 const Login =({navigation}) =>{
   const [loading,setLoading] = useState(false);
@@ -23,6 +25,14 @@ const Login =({navigation}) =>{
     }
     else {
       //SIMULACIÓN DEBERIA SER AXIOS
+          if(correo==="admin@huella.com"){
+            navigation.navigate("SolicitudesAdmi")
+            //libreria para guardar info del usuario
+            AsyncStorage.setItem("user", JSON.stringify({
+              correo:correo
+            }))
+            return 
+          }
           setLoading(true);
           axios.post("http://10.0.2.2:3001/user/login",{
             correo: correo, contrasenia:contrasena
@@ -30,7 +40,7 @@ const Login =({navigation}) =>{
             setLoading(false);
             navigation.navigate("Location")
             //libreria para guardar info del usuario
-            await AsyncStorage.setItem("user", JSON.stringify(res.data.login))
+            await AsyncStorage.setItem("user", JSON.stringify(res.data))
           
           })
           .catch(error=>{
@@ -54,7 +64,20 @@ const Login =({navigation}) =>{
   const onInputContrasenaChanged=(string)=>{
     setContrasena(string);
   }
-
+  useEffect(async()=>{
+    try{
+    const userstr=(await AsyncStorage.getItem("user"))
+    }catch(e){
+      return
+    }
+    const user= JSON.parse(await AsyncStorage.getItem("user"))
+    if(user.correo==="admin@huella.com"){
+      navigation.navigate("SolicitudesAdmi")
+    }
+    else if(user){
+      navigation.navigate("Location")
+    }
+},[])//parte nueva de react
   return (
     <View style={styles.container}>   
       <Header title={"Iniciar Sesión"}> </Header>
